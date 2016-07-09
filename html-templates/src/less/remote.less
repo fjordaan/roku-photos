@@ -1,0 +1,92 @@
+/* ==========================================================================
+   Roku photos
+   Remote control
+   ========================================================================== */
+
+// Remote
+// --------------------------------------------------
+.remote {
+	position: fixed;
+	z-index: 50;
+	right: 250px;
+	bottom: -50px;
+	height: 70%;
+	width: 200px;
+	background-color: #222;
+	border-radius: 50px;
+	border: 3px solid #000;
+}
+.remote .controls {
+	BUTTON {
+		position: absolute;
+		width: 50px;
+		height: 50px;
+		border: 3px solid #000;
+		background-color: #111;
+		border-radius: 10px;
+		text-align: center;
+		color: #fff;
+		font-weight: bold;
+		-webkit-user-select: none;
+		cursor: pointer;
+		&:hover,
+		&.active {
+			background-color: #fff;
+			color: #000;
+		}
+	}
+	.navigate-left,
+	.navigate-right,
+	.navigate-up,
+	.navigate-down {
+		background: purple;
+	}
+	.navigate-left {
+		top: 100px;
+		left: 50%;
+		margin-left: -75px;
+	}
+	.navigate-right {
+		top: 100px;
+		left: 50%;
+		margin-left: 25px;
+	}
+	.navigate-up {
+		top: 50px;
+		left: 50%;
+		margin-left: -25px;
+	}
+	.navigate-down {
+		top: 150px;
+		left: 50%;
+		margin-left: -25px;
+	}
+	.navigate-back {
+		top: 25px;
+		left: 25px;
+		height: 25px;
+	}
+	.ok {
+		top: 225px;
+		left: 50%;
+		margin-left: -50px / 2;
+		background-color: purple;
+		border-radius: 50px;
+	}
+	.play-pause,
+	.rewind,
+	.forward {
+		top: 300px;
+		height: 25px;
+	}
+	.play-pause {
+		left: 50%;
+		margin-left: -50px / 2;
+	}
+	.rewind {
+		left: 20px;
+	}
+	.forward {
+		right: 20px;
+	}
+}

@@ -1,0 +1,96 @@
+/* ==========================================================================
+   Roku photos
+   On-screen controls
+   ========================================================================== */
+
+// Controls
+// --------------------------------------------------
+.screen-home {
+	border-color: black;
+	transform: translate(0, 100%);
+}
+.screen-order {
+	border-color: blue;
+	transform: translate(0, -100%);
+}
+.screen {
+	// display: none;
+	position: fixed;
+	z-index: 30;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-style: dashed;
+	border-width: 4px;
+	-webkit-user-select: none;
+	transition: transform .3s;
+	&.shown {
+		// display: block;
+		transform: translate(0, 0);
+	}
+	BUTTON {
+		padding: 0;
+		position: absolute;
+		// opacity: 0.05;
+		width: 0;
+		height: 0;
+		background-color: transparent;
+		border: 25px solid transparent;
+		&:hover {
+			background-color: #fff;
+		}
+	}
+	.enabled {
+		// opacity: 0.7;
+		cursor: pointer;
+		&:active {
+			margin-top: 1px;
+		}
+	}
+	.active {
+		// opacity: 1;
+		border-color: #fff;
+	}
+	.label {
+		position: absolute;
+		font-size: 24px;
+	}
+	.navigate-left {
+		top: 50%;
+		left: 0;
+		border-right-width: 50px;
+		border-right-color: #000;
+		.label {
+			left: 60px;
+		}
+	}
+	.navigate-right {
+		top: 50%;
+		right: 0;
+		border-left-width: 50px;
+		border-left-color: #000;
+		.label {
+			right: 60px;
+		}
+	}
+	.navigate-up {
+		top: 0;
+		left: 50%;
+		border-bottom-width: 50px;
+		border-bottom-color: #000;
+		.label {
+			top: 60px;
+		}
+	}
+	.navigate-down {
+		bottom: 0;
+		left: 50%;
+		border-top-width: 50px;
+		border-top-color: #000;
+		.label {
+			bottom: 60px;
+		}
+	}
+}
+

@@ -1,0 +1,205 @@
+/* ==========================================================================
+   Roku photos screensaver
+   ========================================================================== */
+/* ==========================================================================
+   Roku photos
+   Remote control
+   ========================================================================== */
+.remote {
+  position: fixed;
+  z-index: 50;
+  right: 250px;
+  bottom: -50px;
+  height: 70%;
+  width: 200px;
+  background-color: #222;
+  border-radius: 50px;
+  border: 3px solid #000;
+}
+.remote .controls BUTTON {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border: 3px solid #000;
+  background-color: #111;
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+.remote .controls BUTTON:hover,
+.remote .controls BUTTON.active {
+  background-color: #fff;
+  color: #000;
+}
+.remote .controls .navigate-left,
+.remote .controls .navigate-right,
+.remote .controls .navigate-up,
+.remote .controls .navigate-down {
+  background: purple;
+}
+.remote .controls .navigate-left {
+  top: 100px;
+  left: 50%;
+  margin-left: -75px;
+}
+.remote .controls .navigate-right {
+  top: 100px;
+  left: 50%;
+  margin-left: 25px;
+}
+.remote .controls .navigate-up {
+  top: 50px;
+  left: 50%;
+  margin-left: -25px;
+}
+.remote .controls .navigate-down {
+  top: 150px;
+  left: 50%;
+  margin-left: -25px;
+}
+.remote .controls .navigate-back {
+  top: 25px;
+  left: 25px;
+  height: 25px;
+}
+.remote .controls .ok {
+  top: 225px;
+  left: 50%;
+  margin-left: -25px;
+  background-color: purple;
+  border-radius: 50px;
+}
+.remote .controls .play-pause,
+.remote .controls .rewind,
+.remote .controls .forward {
+  top: 300px;
+  height: 25px;
+}
+.remote .controls .play-pause {
+  left: 50%;
+  margin-left: -25px;
+}
+.remote .controls .rewind {
+  left: 20px;
+}
+.remote .controls .forward {
+  right: 20px;
+}
+/* ==========================================================================
+   Roku photos
+   Slides
+   ========================================================================== */
+.slide {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 1px solid red;
+  text-align: center;
+}
+.slide.active {
+  display: block;
+}
+.slide .label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.slide1 {
+  background-color: yellow;
+}
+.slide2 {
+  background-color: red;
+}
+/* ==========================================================================
+   Roku photos
+   On-screen controls
+   ========================================================================== */
+.screen-home {
+  border-color: black;
+  transform: translate(0, 100%);
+}
+.screen-order {
+  border-color: blue;
+  transform: translate(0, -100%);
+}
+.screen {
+  position: fixed;
+  z-index: 30;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-style: dashed;
+  border-width: 4px;
+  -webkit-user-select: none;
+  transition: transform .3s;
+}
+.screen.shown {
+  transform: translate(0, 0);
+}
+.screen BUTTON {
+  padding: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+  background-color: transparent;
+  border: 25px solid transparent;
+}
+.screen BUTTON:hover {
+  background-color: #fff;
+}
+.screen .enabled {
+  cursor: pointer;
+}
+.screen .enabled:active {
+  margin-top: 1px;
+}
+.screen .active {
+  border-color: #fff;
+}
+.screen .label {
+  position: absolute;
+  font-size: 24px;
+}
+.screen .navigate-left {
+  top: 50%;
+  left: 0;
+  border-right-width: 50px;
+  border-right-color: #000;
+}
+.screen .navigate-left .label {
+  left: 60px;
+}
+.screen .navigate-right {
+  top: 50%;
+  right: 0;
+  border-left-width: 50px;
+  border-left-color: #000;
+}
+.screen .navigate-right .label {
+  right: 60px;
+}
+.screen .navigate-up {
+  top: 0;
+  left: 50%;
+  border-bottom-width: 50px;
+  border-bottom-color: #000;
+}
+.screen .navigate-up .label {
+  top: 60px;
+}
+.screen .navigate-down {
+  bottom: 0;
+  left: 50%;
+  border-top-width: 50px;
+  border-top-color: #000;
+}
+.screen .navigate-down .label {
+  bottom: 60px;
+}
