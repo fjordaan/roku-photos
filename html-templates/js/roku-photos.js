@@ -85,10 +85,10 @@ $('.screen-lock2 .navigate-up').click(function(){
     $('.screen-lock2').removeClass('shown');
     return false;
 });
-$('button.btn').click(function(){
-    $('.screen').hide();
-    return false;
-});
+// $('button.btn').click(function(){
+//     $('.screen').hide();
+//     return false;
+// });
 
 // Make remote draggable
 // https://css-tricks.com/snippets/jquery/draggable-without-jquery-ui/

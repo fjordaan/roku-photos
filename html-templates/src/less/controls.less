@@ -34,19 +34,21 @@
 		// transform: translate(0, 0);
 	}
 	BUTTON {
-		padding: 0;
 		position: absolute;
+		display: inline-block;
+		padding: 10px;
+		border: 0;
 		// opacity: 0.05;
-		width: 0;
-		height: 0;
-		background-color: transparent;
-		border: 25px solid transparent;
+		background: transparent;
 		&:hover {
 			background-color: #fff;
 		}
 		&:active {
 			color: #f00;
 			// border-color: #f00;
+		}
+		.icon {
+			font-size: 32px;
 		}
 	}
 	.enabled {
@@ -61,7 +63,7 @@
 		border-color: #fff;
 	}
 	.label {
-		position: absolute;
+		// position: absolute;
 		font-size: 24px;
 	}
 	.btn .label {
@@ -72,37 +74,35 @@
 	.navigate-left {
 		top: 50%;
 		left: 0;
-		border-right-width: 50px;
-		border-right-color: #000;
+		transform: translate(0, -50%);
 		.label {
-			left: 60px;
+			margin: 0 10px;
 		}
 	}
 	.navigate-right {
 		top: 50%;
 		right: 0;
-		border-left-width: 50px;
-		border-left-color: #000;
+		transform: translate(0, -50%);
 		.label {
-			right: 60px;
+			margin: 0 10px;
 		}
 	}
 	.navigate-up {
 		top: 0;
 		left: 50%;
-		border-bottom-width: 50px;
-		border-bottom-color: #000;
+		transform: translate(-50%, 0);
 		.label {
-			top: 60px;
+			display: block;
+			margin: 10px 0;
 		}
 	}
 	.navigate-down {
 		bottom: 0;
 		left: 50%;
-		border-top-width: 50px;
-		border-top-color: #000;
+		transform: translate(-50%, 0);
 		.label {
-			bottom: 60px;
+			display: block;
+			margin: 10px 0;
 		}
 	}
 }
