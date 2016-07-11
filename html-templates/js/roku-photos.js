@@ -9,6 +9,12 @@ $.fn.extend({
     }
 });
 
+var action = '';
+var currentOrder = 'random-order';
+var currentLock  = 'no-lock';
+var currentScreen = 'screen-home';
+$('.screen').hide();
+
 // Binding keys for navigation
 // http://stackoverflow.com/a/6011119
 
@@ -76,45 +82,101 @@ $('button').click(function() {
 
 });
 
-
-
-
 // Switch screens
 
-$('.screen-home .navigate-up').click(function(){
-    $('.screen-home').removeClass('shown');
-    $('.screen-order').addClass('shown');
-    // return false;
+$(document).keydown(function() {
+    if(action == "navigate-up") {
+        switch(currentScreen) {
+            case 'screen-home':
+                currentScreen = 'screen-order';
+                break;
+            case 'screen-order':
+                currentOrder = 'random-order';
+                $('.message.order-new').show().html(currentOrder).animateCss('flash');
+                break;
+            default:
+                currentScreen = 'screen-home';
+        } 
+    }
+    if(action == "navigate-down") {
+        switch(currentScreen) {
+            case 'screen-home':
+                currentScreen = 'screen-lock';
+                break;
+            case 'screen-order':
+                currentScreen = 'screen-home';
+                break;
+            case 'screen-lock':
+                currentScreen = 'screen-lock2';
+                break;
+            default:
+                currentScreen = 'screen-home';
+        } 
+    }
+    if(action == "navigate-left") {
+        switch(currentScreen) {
+            case 'screen-home':
+                break;
+            case 'screen-order':
+                currentOrder = 'chronological-order';
+                break;
+            default:
+                currentScreen = 'screen-home';
+        } 
+    }
+    if(action == "navigate-right") {
+        switch(currentScreen) {
+            case 'screen-home':
+                currentScreen = 'screen-lock';
+                break;
+            case 'screen-order':
+                currentOrder = 'alphabetical-order';
+                break;
+            default:
+                currentScreen = 'screen-home';
+        } 
+    }
+    console.log(currentScreen);
+    console.log(currentOrder);
+    console.log(currentLock);
+    $('.screen').hide();
+    $('.' + currentScreen).show();
 });
-$('.screen-order .navigate-down').click(function(){
-    $('.screen-order').removeClass('shown');
-    $('.screen-home').addClass('shown');
-    // return false;
-});
-$('.screen-order .navigate-up').click(function(){
-    $('.message.order-new').show();
-    // return false;
-});
-$('.screen-home .navigate-down').click(function(){
-    $('.screen-home').removeClass('shown');
-    $('.screen-lock').addClass('shown');
-    // return false;
-});
-$('.screen-lock .navigate-up').click(function(){
-    $('.screen-lock').removeClass('shown');
-    $('.screen-home').addClass('shown');
-    return false;
-});
-$('.screen-lock .navigate-down').click(function(){
-    $('.screen-lock').removeClass('shown');
-    $('.screen-lock2').addClass('shown');
-    return false;
-});
-$('.screen-lock2 .navigate-up').click(function(){
-    $('.screen-lock').addClass('shown');
-    $('.screen-lock2').removeClass('shown');
-    return false;
-});
+
+// $('.screen-home .navigate-up').click(function(){
+//     $('.screen-home').removeClass('shown');
+//     $('.screen-order').addClass('shown');
+//     // return false;
+// });
+// $('.screen-order .navigate-down').click(function(){
+//     $('.screen-order').removeClass('shown');
+//     $('.screen-home').addClass('shown');
+//     // return false;
+// });
+// $('.screen-order .navigate-up').click(function(){
+//     $('.message.order-new').show();
+//     // return false;
+// });
+// $('.screen-home .navigate-down').click(function(){
+//     $('.screen-home').removeClass('shown');
+//     $('.screen-lock').addClass('shown');
+//     // return false;
+// });
+// $('.screen-lock .navigate-up').click(function(){
+//     $('.screen-lock').removeClass('shown');
+//     $('.screen-home').addClass('shown');
+//     return false;
+// });
+// $('.screen-lock .navigate-down').click(function(){
+//     $('.screen-lock').removeClass('shown');
+//     $('.screen-lock2').addClass('shown');
+//     return false;
+// });
+// $('.screen-lock2 .navigate-up').click(function(){
+//     $('.screen-lock').addClass('shown');
+//     $('.screen-lock2').removeClass('shown');
+//     return false;
+// });
 // $('button.btn').click(function(){
 //     $('.screen').hide();
 //     return false;
