@@ -1,87 +1,104 @@
+// jQuery plugin to make animate.css easy to use
+// https://github.com/daneden/animate.css
+$.fn.extend({
+    animateCss: function (animationName) {
+        var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+        $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+            $(this).removeClass('animated ' + animationName);
+        });
+    }
+});
+
 // Binding keys for navigation
 // http://stackoverflow.com/a/6011119
-
 
 $(document).keydown(function(e) {
     
     $('.controls button').removeClass('active');
+    // $('.message.event').removeClass('animated');
     // console.log(e.which);
 
     switch(e.which) {
 
         case 13: // enter
         // $('.screen').toggleClass('shown');
-        $('.ok').addClass('active');
-        control = 'enter';
+        action = 'ok';
         break;
 
         case 37: // left
-        $('.navigate-left').addClass('active');
-        control = 'left';
+        action = 'navigate-left';
         break;
 
         case 38: // up
-        $('.navigate-up').addClass('active');
-        control = 'up';
+        action = 'navigate-up';
         break;
 
         case 39: // right
-        $('.navigate-right').addClass('active');
-        control = 'right';
+        action = 'navigate-right';
         break;
 
         case 40: // down
-        $('.navigate-down').addClass('active');
-        control = 'down';
+        action = 'navigate-down';
         break;
 
         case 8: // backspace
-        $('.navigate-back').addClass('active');
-        control = 'back';
+        action = 'navigate-back';
         break;
 
         case 32: // space
-        $('.play-pause').addClass('active');
-        control = 'play-pause';
+        action = 'play-pause';
         break;
 
         case 90: // z (r interferes with refresh)
-        $('.rewind').addClass('active');
-        control = 'rewind';
+        action = 'rewind';
         break;
 
         case 88: // x
-        $('.forward').addClass('active');
-        control = 'forward';
+        action = 'forward';
         break;
 
         default: return; // exit this handler for other keys
     }
     e.preventDefault(); // prevent the default action (scroll / move caret)
-    console.log(control);
-    $('.message.event').show().html(control);
+    console.log(action);
+    // $('.message.event').show().html(action).addClass('animated flash');
+    $('.message.event').show().html(action).animateCss('flash');
+    $('.' + action).addClass('active');
 });
+
+$('button').click(function() {
+
+    $('.controls button').removeClass('active');
+    var action = $(this).attr("class");
+    console.log(action);
+    $('.message.event').show().html(action).animateCss('flash');
+    $('.' + action).addClass('active');
+
+});
+
+
+
 
 // Switch screens
 
 $('.screen-home .navigate-up').click(function(){
     $('.screen-home').removeClass('shown');
     $('.screen-order').addClass('shown');
-    return false;
+    // return false;
 });
 $('.screen-order .navigate-down').click(function(){
     $('.screen-order').removeClass('shown');
     $('.screen-home').addClass('shown');
-    return false;
+    // return false;
 });
 $('.screen-order .navigate-up').click(function(){
     $('.message.order-new').show();
-    return false;
+    // return false;
 });
 $('.screen-home .navigate-down').click(function(){
     $('.screen-home').removeClass('shown');
     $('.screen-lock').addClass('shown');
-    return false;
+    // return false;
 });
 $('.screen-lock .navigate-up').click(function(){
     $('.screen-lock').removeClass('shown');

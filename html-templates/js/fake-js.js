@@ -35,3 +35,36 @@ if ($screen = '.screen-lock') and $clickedUp
     $('.screen').hide();
     set $screen = '.screen-home' // back to default screen
 // and so on for other event/screen combos
+
+
+
+forever evaluate $action
+    case $action = 'up'
+        case currentScreen = 'screen-home'
+            currentScreen = 'screen-top'
+        case currentScreen = 'screen-top'
+            mode = 'new-mode'
+            currentScreen = 'screen-home'
+    case $action = 'down'
+        case currentScreen = 'screen-home'
+            currentScreen = 'screen-bottom'
+        case currentScreen = 'screen-bottom'
+            mode = 'other-mode'
+            currentScreen = 'screen-home'
+    $(currentScreen).show();
+
+
+switch(expression) {
+    case n:
+        code block
+        break;
+    case n:
+        code block
+        break;
+    default:
+        default code block
+} 
+
+(function($) {
+
+})(jQuery);
