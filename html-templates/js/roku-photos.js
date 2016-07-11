@@ -36,11 +36,11 @@ $(document).keydown(function(e) {
         $('.play-pause').addClass('active');
         break;
 
-        // case 82: // r
-        // $('.rewind').addClass('active');
-        // break;
+        case 90: // z (r interferes with refresh)
+        $('.rewind').addClass('active');
+        break;
 
-        case 70: // f
+        case 88: // x
         $('.forward').addClass('active');
         break;
 
@@ -61,6 +61,10 @@ $('.screen-order .navigate-down').click(function(){
     $('.screen-home').addClass('shown');
     return false;
 });
+$('.screen-order .navigate-up').click(function(){
+    $('.message.order-new').show();
+    return false;
+});
 $('.screen-home .navigate-down').click(function(){
     $('.screen-home').removeClass('shown');
     $('.screen-lock').addClass('shown');
@@ -79,6 +83,10 @@ $('.screen-lock .navigate-down').click(function(){
 $('.screen-lock2 .navigate-up').click(function(){
     $('.screen-lock').addClass('shown');
     $('.screen-lock2').removeClass('shown');
+    return false;
+});
+$('button.btn').click(function(){
+    $('.screen').hide();
     return false;
 });
 
