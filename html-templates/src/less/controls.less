@@ -7,14 +7,18 @@
 // --------------------------------------------------
 .screen-home {
 	border-color: black;
-	transform: translate(0, 100%);
+	// transform: translate(0, 0);
 }
 .screen-order {
 	border-color: blue;
-	transform: translate(0, -100%);
+	// transform: translate(0, -100%);
+}
+.screen-lock {
+	border-color: red;
+	// transform: translate(0, 100%);
 }
 .screen {
-	// display: none;
+	display: none;
 	position: fixed;
 	z-index: 30;
 	top: 0;
@@ -24,10 +28,10 @@
 	border-style: dashed;
 	border-width: 4px;
 	-webkit-user-select: none;
-	transition: transform .3s;
+	// transition: transform .3s;
 	&.shown {
-		// display: block;
-		transform: translate(0, 0);
+		display: block;
+		// transform: translate(0, 0);
 	}
 	BUTTON {
 		padding: 0;
@@ -39,6 +43,10 @@
 		border: 25px solid transparent;
 		&:hover {
 			background-color: #fff;
+		}
+		&:active {
+			color: #f00;
+			// border-color: #f00;
 		}
 	}
 	.enabled {
@@ -55,6 +63,11 @@
 	.label {
 		position: absolute;
 		font-size: 24px;
+	}
+	.btn {
+		padding: 4px 5px;
+		border: 1px solid #333;
+		border-radius: 10px;
 	}
 	.navigate-left {
 		top: 50%;

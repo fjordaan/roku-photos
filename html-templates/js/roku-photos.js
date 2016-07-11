@@ -61,7 +61,26 @@ $('.screen-order .navigate-down').click(function(){
     $('.screen-home').addClass('shown');
     return false;
 });
-
+$('.screen-home .navigate-down').click(function(){
+    $('.screen-home').removeClass('shown');
+    $('.screen-lock').addClass('shown');
+    return false;
+});
+$('.screen-lock .navigate-up').click(function(){
+    $('.screen-lock').removeClass('shown');
+    $('.screen-home').addClass('shown');
+    return false;
+});
+$('.screen-lock .navigate-down').click(function(){
+    $('.screen-lock').removeClass('shown');
+    $('.screen-lock2').addClass('shown');
+    return false;
+});
+$('.screen-lock2 .navigate-up').click(function(){
+    $('.screen-lock').addClass('shown');
+    $('.screen-lock2').removeClass('shown');
+    return false;
+});
 
 // Make remote draggable
 // https://css-tricks.com/snippets/jquery/draggable-without-jquery-ui/
