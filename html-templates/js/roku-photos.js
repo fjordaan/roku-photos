@@ -1,52 +1,65 @@
 // Binding keys for navigation
 // http://stackoverflow.com/a/6011119
 
+
 $(document).keydown(function(e) {
     
     $('.controls button').removeClass('active');
+    // console.log(e.which);
 
     switch(e.which) {
 
         case 13: // enter
-        $('.controls').toggleClass('shown');
+        // $('.screen').toggleClass('shown');
         $('.ok').addClass('active');
+        control = 'enter';
         break;
 
         case 37: // left
         $('.navigate-left').addClass('active');
+        control = 'left';
         break;
 
         case 38: // up
         $('.navigate-up').addClass('active');
+        control = 'up';
         break;
 
         case 39: // right
         $('.navigate-right').addClass('active');
+        control = 'right';
         break;
 
         case 40: // down
         $('.navigate-down').addClass('active');
+        control = 'down';
         break;
 
         case 8: // backspace
         $('.navigate-back').addClass('active');
+        control = 'back';
         break;
 
         case 32: // space
         $('.play-pause').addClass('active');
+        control = 'play-pause';
         break;
 
         case 90: // z (r interferes with refresh)
         $('.rewind').addClass('active');
+        control = 'rewind';
         break;
 
         case 88: // x
         $('.forward').addClass('active');
+        control = 'forward';
         break;
 
         default: return; // exit this handler for other keys
     }
     e.preventDefault(); // prevent the default action (scroll / move caret)
+    console.log(control);
+    $('.message.event').show().html(control);
 });
 
 // Switch screens
