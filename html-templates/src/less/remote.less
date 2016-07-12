@@ -3,6 +3,11 @@
    Remote control
    ========================================================================== */
 
+@keyframes buttonflash {
+   0% {background: transparent;}
+   100% {background: #fff;}
+}
+
 // Remote
 // --------------------------------------------------
 .remote {
@@ -29,9 +34,11 @@
 		font-weight: bold;
 		-webkit-user-select: none;
 		cursor: pointer;
+		transition: background-color color .7s;
 		&:hover,
 		&.active {
 			background-color: #fff;
+			// animation: buttonflash .3s;
 			color: #000;
 		}
 	}

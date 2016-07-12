@@ -6,18 +6,25 @@ $.fn.extend({
         $(this).addClass('animated ' + animationName).one(animationEnd, function() {
             $(this).removeClass('animated ' + animationName);
         });
+    },
+    animateandhideCss: function (animationName) {
+        var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+        $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+            $(this).hide();
+        });
     }
 });
 
 var action = '';
 var currentOrder = 'random-order';
-var currentLock  = 'no-lock';
+var currentLock  = 'unlocked';
 var currentScreen = 'screen-home';
+var playState    = 'play';
 $('.screen').hide();
+
 
 // Binding keys for navigation
 // http://stackoverflow.com/a/6011119
-
 $(document).keydown(function(e) {
     
     $('.controls button').removeClass('active');
@@ -69,34 +76,67 @@ $(document).keydown(function(e) {
     console.log(action);
     // $('.message.event').show().html(action).addClass('animated flash');
     $('.message.event').show().html(action).animateCss('flash');
-    $('.' + action).addClass('active');
+    // Delay: http://stackoverflow.com/a/2510255
+    $('.remote .' + action).addClass('active').delay(300).queue(function(next){
+        $(this).removeClass("active");
+        next();
+    });
+    navigate(action);
 });
 
+// Navigating by clicking buttons
 $('button').click(function() {
 
     $('.controls button').removeClass('active');
     var action = $(this).attr("class");
     console.log(action);
     $('.message.event').show().html(action).animateCss('flash');
-    $('.' + action).addClass('active');
+    $('.remote .' + action).addClass('active').delay(300).queue(function(next){
+        $(this).removeClass("active");
+        next();
+    });
+    navigate(action);
 
 });
 
-// Switch screens
+// Switch screens or activate buttons
 
-$(document).keydown(function() {
+function navigate(action) {
+    
+
     if(action == "navigate-up") {
         switch(currentScreen) {
             case 'screen-home':
                 currentScreen = 'screen-order';
+                $('.message.pause-icon').toggle().animateCss('zoomIn');
+                playState = 'pause';
                 break;
             case 'screen-order':
                 currentOrder = 'random-order';
-                $('.message.order-new').show().html(currentOrder).animateCss('flash');
+                $('.message.order-new').show().html(currentOrder).animateandhideCss('flash');
+                currentScreen = 'screen-home';
+                $('.message.pause-icon').hide();
+                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
+                playState = 'play';
+                break;
+            case 'screen-lock':
+                currentLock = 'unlocked';
+                $('.message.lock-new').show().html(currentLock).animateandhideCss('flash');
+                currentScreen = 'screen-home';
+                $('.message.pause-icon').hide();
+                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
+                playState = 'play';
+                break;
+            case 'screen-lock2':
+                currentScreen = 'screen-lock';
                 break;
             default:
                 currentScreen = 'screen-home';
-        } 
+        }
+        $('.screen').hide();
+        if(currentScreen !== "screen-home") {
+            $('.' + currentScreen).show();
+        }
     }
     if(action == "navigate-down") {
         switch(currentScreen) {
@@ -105,82 +145,122 @@ $(document).keydown(function() {
                 break;
             case 'screen-order':
                 currentScreen = 'screen-home';
+                $('.message.pause-icon').hide();
+                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
+                playState = 'play';
                 break;
             case 'screen-lock':
                 currentScreen = 'screen-lock2';
                 break;
             default:
                 currentScreen = 'screen-home';
-        } 
+        }
+        $('.screen').hide();
+        if(currentScreen !== "screen-home") {
+            $('.' + currentScreen).show();
+        }
     }
     if(action == "navigate-left") {
         switch(currentScreen) {
             case 'screen-home':
+                currentScreen = 'screen-home';
                 break;
             case 'screen-order':
                 currentOrder = 'chronological-order';
+                $('.message.order-new').show().html(currentOrder).animateandhideCss('flash');
+                currentScreen = 'screen-home';
+                $('.message.pause-icon').hide();
+                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
+                playState = 'play';
+                break;
+            case 'screen-lock':
+                currentLock = 'lock-month';
+                $('.message.lock-new').show().html(currentLock).animateandhideCss('flash');
+                currentScreen = 'screen-home';
+                $('.message.pause-icon').hide();
+                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
+                playState = 'play';
+                break;
+            case 'screen-lock2':
+                currentLock = 'lock-day';
+                $('.message.lock-new').show().html(currentLock).animateandhideCss('flash');
+                currentScreen = 'screen-home';
+                $('.message.pause-icon').hide();
+                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
+                playState = 'play';
                 break;
             default:
                 currentScreen = 'screen-home';
-        } 
+        }
+        $('.screen').hide();
+        if(currentScreen !== "screen-home") {
+            $('.' + currentScreen).show();
+        }
     }
     if(action == "navigate-right") {
         switch(currentScreen) {
             case 'screen-home':
-                currentScreen = 'screen-lock';
+                currentScreen = 'screen-home';
                 break;
             case 'screen-order':
                 currentOrder = 'alphabetical-order';
+                $('.message.order-new').show().html(currentOrder).animateandhideCss('flash');
+                currentScreen = 'screen-home';
+                $('.message.pause-icon').hide();
+                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
+                playState = 'play';
+                break;
+            case 'screen-lock':
+                currentLock = 'lock-folder';
+                $('.message.lock-new').show().html(currentLock).animateandhideCss('flash');
+                currentScreen = 'screen-home';
+                $('.message.pause-icon').hide();
+                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
+                playState = 'play';
+                break;
+            case 'screen-lock2':
+                currentLock = 'lock-year';
+                $('.message.lock-new').show().html(currentLock).animateandhideCss('flash');
+                currentScreen = 'screen-home';
+                $('.message.pause-icon').hide();
+                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
+                playState = 'play';
                 break;
             default:
                 currentScreen = 'screen-home';
-        } 
+        }
+        $('.screen').hide();
+        if(currentScreen !== "screen-home") {
+            $('.' + currentScreen).show();
+        }
     }
+    if(action == "ok") {
+        $('.' + currentScreen).toggle();
+    }
+    if(action == "play-pause") {
+        $('.caption').toggle();
+        if(playState == "play") {
+            $('.message.play-icon').hide();
+            $('.message.pause-icon').toggle().animateCss('zoomIn');
+            playState = 'pause';
+        }
+        else {
+            $('.message.pause-icon').hide();
+            $('.message.play-icon').toggle().animateandhideCss('zoomIn');
+            playState = 'play';
+        }
+    }
+    if(action == "navigate-back") {
+        currentScreen = 'screen-home';
+        $('.screen').hide();
+    }
+
     console.log(currentScreen);
     console.log(currentOrder);
     console.log(currentLock);
-    $('.screen').hide();
-    $('.' + currentScreen).show();
-});
+    
+};
 
-// $('.screen-home .navigate-up').click(function(){
-//     $('.screen-home').removeClass('shown');
-//     $('.screen-order').addClass('shown');
-//     // return false;
-// });
-// $('.screen-order .navigate-down').click(function(){
-//     $('.screen-order').removeClass('shown');
-//     $('.screen-home').addClass('shown');
-//     // return false;
-// });
-// $('.screen-order .navigate-up').click(function(){
-//     $('.message.order-new').show();
-//     // return false;
-// });
-// $('.screen-home .navigate-down').click(function(){
-//     $('.screen-home').removeClass('shown');
-//     $('.screen-lock').addClass('shown');
-//     // return false;
-// });
-// $('.screen-lock .navigate-up').click(function(){
-//     $('.screen-lock').removeClass('shown');
-//     $('.screen-home').addClass('shown');
-//     return false;
-// });
-// $('.screen-lock .navigate-down').click(function(){
-//     $('.screen-lock').removeClass('shown');
-//     $('.screen-lock2').addClass('shown');
-//     return false;
-// });
-// $('.screen-lock2 .navigate-up').click(function(){
-//     $('.screen-lock').addClass('shown');
-//     $('.screen-lock2').removeClass('shown');
-//     return false;
-// });
-// $('button.btn').click(function(){
-//     $('.screen').hide();
-//     return false;
-// });
 
 // Make remote draggable
 // https://css-tricks.com/snippets/jquery/draggable-without-jquery-ui/

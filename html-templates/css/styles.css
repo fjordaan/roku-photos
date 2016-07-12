@@ -5115,6 +5115,14 @@
    Roku photos
    Remote control
    ========================================================================== */
+@keyframes buttonflash {
+  0% {
+    background: transparent;
+  }
+  100% {
+    background: #fff;
+  }
+}
 .remote {
   position: fixed;
   z-index: 50;
@@ -5138,6 +5146,7 @@
   font-weight: bold;
   -webkit-user-select: none;
   cursor: pointer;
+  transition: background-color color 0.7s;
 }
 .remote .controls BUTTON:hover,
 .remote .controls BUTTON.active {
@@ -5219,9 +5228,9 @@
 }
 .slide .label {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  bottom: 10px;
+  left: 10px;
+  font-family: sans-serif;
 }
 .slide1 {
   background-color: yellow;
@@ -5229,9 +5238,23 @@
 .slide2 {
   background-color: red;
 }
+.caption {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 16px;
+  font-family: sans-serif;
+  text-align: center;
+}
 /* ==========================================================================
    Roku photos
-   On-screen controls
+   Screen; On-screen controls
    ========================================================================== */
 .screen-home {
   border-color: black;
@@ -5357,4 +5380,24 @@
 }
 .message {
   display: none;
+}
+.pause-icon,
+.play-icon {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -30px;
+}
+.pause-icon {
+  font-size: 72px;
+  -webkit-animation-duration: .4s;
+  -moz-animation-duration: .4s;
+  animation-duration: .4s;
+}
+.play-icon {
+  font-size: 72px;
+  -webkit-animation-duration: .8s;
+  -moz-animation-duration: .8s;
+  animation-duration: .8s;
 }
