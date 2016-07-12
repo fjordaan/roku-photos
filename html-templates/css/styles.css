@@ -5220,18 +5220,12 @@
   left: 30px;
   right: 30px;
   bottom: 30px;
-  border: 1px solid red;
+  border: 1px solid #fff;
   text-align: center;
   overflow: hidden;
 }
 .slide.active {
   display: block;
-}
-.slide .label {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  font-family: monospace;
 }
 .image {
   position: absolute;
@@ -5287,6 +5281,26 @@ BODY {
   bottom: 40px;
   border-radius: 30px;
   background-color: #000;
+}
+.tv:after {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 35%;
+  right: 35%;
+  display: block;
+  height: 10px;
+  background-color: #555;
+}
+.tv:before {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 40%;
+  right: 40%;
+  display: block;
+  height: 40px;
+  background-color: #666;
 }
 .screen-home {
   border-color: black;

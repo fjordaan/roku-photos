@@ -25,20 +25,46 @@ var lockMessage = 'Unlocked: displaying all photos';
 var playState    = 'play';
 var slides = $('.slides').children('.slide');
 console.log(slides);
+console.log(slides.length);
 var slide = 0;
 $('.screen').hide();
 
 // Slideshow
-function slideShow(slide) {
-    console.log(slide);
-    // console.log(slides.length);
-    if(slide > slides.length) {
+window.onload = function start() {
+    slideShow();
+}
+function slideShow() {
+    console.log(playState);
+
+    window.setInterval(function () {
+        if(playState = 'pause') {
+            clearInterval();
+        }
+        // increase by num 1, reset to 0 at slides.length
+        // slide = (slide + 1) % slides.length;
+        slide = slide + 1;
+        if(slide >= slides.length) {
+            slide = 0;
+        }
+        if(slide < 0) {
+            slide = (slides.length-1);
+        }
+        console.log(slide);
+        $('.slides .slide').removeClass('active');
+        $('.slides .slide:eq('+slide+')').addClass('active');
+    }, 3000); // repeat forever, polling every 3 seconds
+
+    if(slide >= slides.length) {
         slide = 0;
     }
-    $('.slides .slide').removeClass('active');
-    $('.slides .slide:eq('+slide+')').addClass('active');
+    if(slide < 0) {
+        slide = (slides.length-1);
+    }
+
 }
-slideShow(slide);
+
+
+
 
 
 // Binding keys for navigation
@@ -226,7 +252,7 @@ function navigate(action) {
             case 'screen-home':
                 currentScreen = 'screen-home';
                 slide--;
-                slideShow(slide);
+                slideShow();
                 break;
             case 'screen-order':
                 newOrder('chronological-order');
@@ -250,7 +276,7 @@ function navigate(action) {
             case 'screen-home':
                 currentScreen = 'screen-home';
                 slide++;
-                slideShow(slide);
+                slideShow();
                 break;
             case 'screen-order':
                 newOrder('alphabetical-order');
@@ -280,11 +306,13 @@ function navigate(action) {
             $('.message.play-icon').hide();
             $('.message.pause-icon').toggle().animateCss('zoomIn');
             playState = 'pause';
+            console.log(playState);
         }
         else {
             $('.message.pause-icon').hide();
             $('.message.play-icon').toggle().animateandhideCss('zoomIn');
             playState = 'play';
+            console.log(playState);
         }
     }
     if(action == "navigate-back") {
