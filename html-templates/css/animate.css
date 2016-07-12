@@ -1504,8 +1504,9 @@
   animation-name: fadeInUpBig;
 }
 
+// FJ: modified fadeOut to start fading halfway through animation only
 @-webkit-keyframes fadeOut {
-  from {
+  50% {
     opacity: 1;
   }
 
@@ -1515,7 +1516,7 @@
 }
 
 @keyframes fadeOut {
-  from {
+  50% {
     opacity: 1;
   }
 

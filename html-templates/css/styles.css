@@ -3542,7 +3542,7 @@
   animation-name: fadeInUpBig;
 }
 @-webkit-keyframes fadeOut {
-  from {
+  50% {
     opacity: 1;
   }
   to {
@@ -3550,7 +3550,7 @@
   }
 }
 @keyframes fadeOut {
-  from {
+  50% {
     opacity: 1;
   }
   to {
@@ -5126,7 +5126,7 @@
 .remote {
   position: fixed;
   z-index: 50;
-  right: 250px;
+  right: 200px;
   bottom: -50px;
   height: 70%;
   width: 200px;
@@ -5215,11 +5215,11 @@
    ========================================================================== */
 .slide {
   display: none;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  right: 30px;
+  bottom: 30px;
   border: 1px solid red;
   text-align: center;
 }
@@ -5230,7 +5230,7 @@
   position: absolute;
   bottom: 10px;
   left: 10px;
-  font-family: sans-serif;
+  font-family: monospace;
 }
 .slide1 {
   background-color: yellow;
@@ -5241,21 +5241,42 @@
 .caption {
   display: none;
   position: absolute;
-  z-index: 10;
+  z-index: 40;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
   color: #fff;
   font-size: 16px;
   font-family: sans-serif;
-  text-align: center;
+  text-align: left;
+  text-shadow: 0px 0px 5px #000000;
+}
+.caption .path {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  right: 0;
+  font-size: 13px;
+  font-family: monospace;
 }
 /* ==========================================================================
    Roku photos
    Screen; On-screen controls
    ========================================================================== */
+BODY {
+  background-color: #ccc;
+}
+.tv {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 40px;
+  border-radius: 30px;
+  background-color: #000;
+}
 .screen-home {
   border-color: black;
 }
@@ -5267,14 +5288,12 @@
 }
 .screen {
   display: none;
-  position: fixed;
+  position: absolute;
   z-index: 30;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-style: dashed;
-  border-width: 4px;
+  top: 30px;
+  left: 30px;
+  right: 30px;
+  bottom: 30px;
   -webkit-user-select: none;
 }
 .screen.shown {
@@ -5359,7 +5378,7 @@
   position: absolute;
   top: 5px;
   right: 5px;
-  font-family: sans-serif;
+  font-family: monospace;
   color: #666;
 }
 /* ==========================================================================
@@ -5380,6 +5399,22 @@
 }
 .message {
   display: none;
+  margin: 15px 0;
+}
+.message.event {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  font-size: 15px;
+  color: #000;
+  text-shadow: none;
+  font-family: monospace;
+}
+.message.order-new,
+.message.lock-new {
+  -webkit-animation-duration: 4s;
+  -moz-animation-duration: 4s;
+  animation-duration: 4s;
 }
 .pause-icon,
 .play-icon {

@@ -3,7 +3,25 @@
    Screen; On-screen controls
    ========================================================================== */
 
-// Controls
+BODY {
+	background-color: #ccc;
+}
+
+// Display
+// --------------------------------------------------
+.tv {
+	position: fixed;
+	// z-index: 30;
+	top: 20px;
+	left: 20px;
+	right: 20px;
+	bottom: 40px;
+	border-radius: 30px;
+	background-color: #000;
+}
+
+
+// Screen; Controls
 // --------------------------------------------------
 .screen-home {
 	border-color: black;
@@ -19,14 +37,14 @@
 }
 .screen {
 	display: none;
-	position: fixed;
+	position: absolute;
 	z-index: 30;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	border-style: dashed;
-	border-width: 4px;
+	top: 30px;
+	left: 30px;
+	right: 30px;
+	bottom: 30px;
+	// border-style: dashed;
+	// border-width: 4px;
 	-webkit-user-select: none;
 	// transition: transform .3s;
 	&.shown {
@@ -118,6 +136,6 @@
 	position: absolute;
 	top: 5px;
 	right: 5px;
-	font-family: sans-serif;
+	font-family: monospace;
 	color: #666;
 }

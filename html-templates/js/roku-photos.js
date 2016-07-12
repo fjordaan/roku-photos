@@ -15,10 +15,13 @@ $.fn.extend({
     }
 });
 
+// Initialise defaults
 var action = '';
 var currentOrder = 'random-order';
 var currentLock  = 'unlocked';
 var currentScreen = 'screen-home';
+var orderMessage = 'Photos displayed in random order';
+var lockMessage = 'Unlocked: displaying all photos';
 var playState    = 'play';
 $('.screen').hide();
 
@@ -73,7 +76,6 @@ $(document).keydown(function(e) {
         default: return; // exit this handler for other keys
     }
     e.preventDefault(); // prevent the default action (scroll / move caret)
-    console.log(action);
     // $('.message.event').show().html(action).addClass('animated flash');
     $('.message.event').show().html(action).animateCss('flash');
     // Delay: http://stackoverflow.com/a/2510255
@@ -89,7 +91,6 @@ $('button').click(function() {
 
     $('.controls button').removeClass('active');
     var action = $(this).attr("class");
-    console.log(action);
     $('.message.event').show().html(action).animateCss('flash');
     $('.remote .' + action).addClass('active').delay(300).queue(function(next){
         $(this).removeClass("active");
@@ -99,33 +100,87 @@ $('button').click(function() {
 
 });
 
+// Change order and lock mode
+function newOrder(order) {
+    currentOrder = order;
+    switch(currentOrder) {
+        case 'random-order':
+            message = 'Photos displayed in random order';
+            break;
+        case 'chronological-order':
+            message = 'Photos displayed in chronological order';
+            break;
+        case 'alphabetical-order':
+            message = 'Photos displayed in alphabetical order';
+            break;
+        default:
+            message = '';
+    }
+    $('.message.order-new').show().html(message).animateandhideCss('fadeOut');
+    $('.message.order-current').html(message);
+};
+function newLock(lock) {
+    currentLock = lock;
+    switch(currentLock) {
+        case 'unlocked':
+            message = 'Unlocked: displaying all photos';
+            break;
+        case 'lock-month':
+            message = 'Displaying photos from this month only';
+            break;
+        case 'lock-folder':
+            message = 'Displaying photos from this folder only';
+            break;
+        case 'lock-day':
+            message = 'Displaying photos from this day only';
+            break;
+        case 'lock-year':
+            message = 'Displaying photos from this year only';
+            break;
+        default:
+            message = '';
+    }
+    $('.message.lock-new').show().html(message).animateandhideCss('fadeOut');
+    $('.message.lock-current').html(message);
+};
+
+function resume() {
+    currentScreen = 'screen-home';
+    $('.message.pause-icon').hide();
+    $('.message.play-icon').toggle().animateandhideCss('zoomIn');
+    playState = 'play';
+};
+function pause() {
+    $('.message.pause-icon').toggle().animateCss('zoomIn');
+    playState = 'pause';
+};
+
 // Switch screens or activate buttons
 
+function navigateGo() {
+    $('.screen').hide();
+    if(currentScreen !== "screen-home") {
+        $('.' + currentScreen).show();
+    }
+    $('.order-current').hide();
+    $('.lock-current').hide();
+}
+
 function navigate(action) {
-    
 
     if(action == "navigate-up") {
         switch(currentScreen) {
             case 'screen-home':
                 currentScreen = 'screen-order';
-                $('.message.pause-icon').toggle().animateCss('zoomIn');
-                playState = 'pause';
+                pause();
                 break;
             case 'screen-order':
-                currentOrder = 'random-order';
-                $('.message.order-new').show().html(currentOrder).animateandhideCss('flash');
-                currentScreen = 'screen-home';
-                $('.message.pause-icon').hide();
-                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
-                playState = 'play';
+                newOrder('random-order');
+                resume();
                 break;
             case 'screen-lock':
-                currentLock = 'unlocked';
-                $('.message.lock-new').show().html(currentLock).animateandhideCss('flash');
-                currentScreen = 'screen-home';
-                $('.message.pause-icon').hide();
-                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
-                playState = 'play';
+                newLock('unlocked');
+                resume();
                 break;
             case 'screen-lock2':
                 currentScreen = 'screen-lock';
@@ -133,10 +188,7 @@ function navigate(action) {
             default:
                 currentScreen = 'screen-home';
         }
-        $('.screen').hide();
-        if(currentScreen !== "screen-home") {
-            $('.' + currentScreen).show();
-        }
+        navigateGo();
     }
     if(action == "navigate-down") {
         switch(currentScreen) {
@@ -144,10 +196,7 @@ function navigate(action) {
                 currentScreen = 'screen-lock';
                 break;
             case 'screen-order':
-                currentScreen = 'screen-home';
-                $('.message.pause-icon').hide();
-                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
-                playState = 'play';
+                resume();
                 break;
             case 'screen-lock':
                 currentScreen = 'screen-lock2';
@@ -155,10 +204,7 @@ function navigate(action) {
             default:
                 currentScreen = 'screen-home';
         }
-        $('.screen').hide();
-        if(currentScreen !== "screen-home") {
-            $('.' + currentScreen).show();
-        }
+        navigateGo();
     }
     if(action == "navigate-left") {
         switch(currentScreen) {
@@ -166,36 +212,21 @@ function navigate(action) {
                 currentScreen = 'screen-home';
                 break;
             case 'screen-order':
-                currentOrder = 'chronological-order';
-                $('.message.order-new').show().html(currentOrder).animateandhideCss('flash');
-                currentScreen = 'screen-home';
-                $('.message.pause-icon').hide();
-                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
-                playState = 'play';
+                newOrder('chronological-order');
+                resume();
                 break;
             case 'screen-lock':
-                currentLock = 'lock-month';
-                $('.message.lock-new').show().html(currentLock).animateandhideCss('flash');
-                currentScreen = 'screen-home';
-                $('.message.pause-icon').hide();
-                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
-                playState = 'play';
+                newLock('lock-month');
+                resume();
                 break;
             case 'screen-lock2':
-                currentLock = 'lock-day';
-                $('.message.lock-new').show().html(currentLock).animateandhideCss('flash');
-                currentScreen = 'screen-home';
-                $('.message.pause-icon').hide();
-                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
-                playState = 'play';
+                newLock('lock-day');
+                resume();
                 break;
             default:
                 currentScreen = 'screen-home';
         }
-        $('.screen').hide();
-        if(currentScreen !== "screen-home") {
-            $('.' + currentScreen).show();
-        }
+        navigateGo();
     }
     if(action == "navigate-right") {
         switch(currentScreen) {
@@ -203,39 +234,26 @@ function navigate(action) {
                 currentScreen = 'screen-home';
                 break;
             case 'screen-order':
-                currentOrder = 'alphabetical-order';
-                $('.message.order-new').show().html(currentOrder).animateandhideCss('flash');
-                currentScreen = 'screen-home';
-                $('.message.pause-icon').hide();
-                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
-                playState = 'play';
+                newOrder('alphabetical-order');
+                resume();
                 break;
             case 'screen-lock':
-                currentLock = 'lock-folder';
-                $('.message.lock-new').show().html(currentLock).animateandhideCss('flash');
-                currentScreen = 'screen-home';
-                $('.message.pause-icon').hide();
-                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
-                playState = 'play';
+                newLock('lock-folder');
+                resume();
                 break;
             case 'screen-lock2':
-                currentLock = 'lock-year';
-                $('.message.lock-new').show().html(currentLock).animateandhideCss('flash');
-                currentScreen = 'screen-home';
-                $('.message.pause-icon').hide();
-                $('.message.play-icon').toggle().animateandhideCss('zoomIn');
-                playState = 'play';
+                newLock('lock-year');
+                resume();
                 break;
             default:
                 currentScreen = 'screen-home';
         }
-        $('.screen').hide();
-        if(currentScreen !== "screen-home") {
-            $('.' + currentScreen).show();
-        }
+        navigateGo();
     }
     if(action == "ok") {
         $('.' + currentScreen).toggle();
+        $('.message.order-current').toggle();
+        $('.message.lock-current').toggle();
     }
     if(action == "play-pause") {
         $('.caption').toggle();
@@ -255,6 +273,7 @@ function navigate(action) {
         $('.screen').hide();
     }
 
+    // console.log(action);
     console.log(currentScreen);
     console.log(currentOrder);
     console.log(currentLock);

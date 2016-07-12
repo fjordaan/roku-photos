@@ -17,10 +17,28 @@
 }
 .message {
 	display: none;
+	margin: 15px 0;
+}
+.message.event {
+	position: fixed;
+	bottom: 10px;
+	left: 10px;
+	font-size: 15px;
+	color: #000;
+	text-shadow: none;
+	font-family: monospace;
+}
+.message.order-new,
+.message.lock-new {
+	-webkit-animation-duration: 4s;
+	-moz-animation-duration: 4s;
+	animation-duration: 4s;
 }
 .pause-icon,
 .play-icon {
 	position: fixed;
+	// bottom: 90px;
+	// right: 80px;
 	top: 50%;
 	left: 50%;
 	margin-top: -50px;
