@@ -5126,13 +5126,14 @@
 .remote {
   position: fixed;
   z-index: 50;
-  right: 200px;
-  bottom: -50px;
+  right: 240px;
+  bottom: -70px;
   height: 70%;
   width: 200px;
   background-color: #222;
   border-radius: 50px;
   border: 3px solid #000;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.35);
 }
 .remote .controls BUTTON {
   position: absolute;
@@ -5262,7 +5263,13 @@
   position: absolute;
   top: 15px;
   left: 20px;
-  right: 0;
+  font-size: 13px;
+  font-family: monospace;
+}
+.caption .date {
+  position: absolute;
+  top: 15px;
+  right: 20px;
   font-size: 13px;
   font-family: monospace;
 }
@@ -5330,9 +5337,12 @@ BODY {
   padding: 10px;
   border: 0;
   background: transparent;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0px 0px 5px #969696;
 }
 .screen BUTTON:hover {
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .screen BUTTON:active,
 .screen BUTTON.active {
@@ -5376,7 +5386,6 @@ BODY {
 }
 .screen .navigate-up .label {
   display: block;
-  margin: 10px 0;
 }
 .screen .navigate-down {
   bottom: 0;
@@ -5385,7 +5394,6 @@ BODY {
 }
 .screen .navigate-down .label {
   display: block;
-  margin: 10px 0;
 }
 .screen .navigate-back {
   top: 10px;

@@ -30,29 +30,27 @@ var slide = 0;
 $('.screen').hide();
 
 // Slideshow
-window.onload = function start() {
-    slideShow();
-}
+// window.onload = function start() {
+//     slideShow();
+// }
 function slideShow() {
-    console.log(playState);
+    // console.log(playState);
 
-    window.setInterval(function () {
-        if(playState = 'pause') {
-            clearInterval();
-        }
-        // increase by num 1, reset to 0 at slides.length
-        // slide = (slide + 1) % slides.length;
-        slide = slide + 1;
-        if(slide >= slides.length) {
-            slide = 0;
-        }
-        if(slide < 0) {
-            slide = (slides.length-1);
-        }
-        console.log(slide);
-        $('.slides .slide').removeClass('active');
-        $('.slides .slide:eq('+slide+')').addClass('active');
-    }, 3000); // repeat forever, polling every 3 seconds
+    // var theInterval =  window.setInterval(function () {
+    //     if(playState = 'pause') {
+    //         clearInterval(theInterval);
+    //     }
+    //     slide = slide + 1;
+    //     if(slide >= slides.length) {
+    //         slide = 0;
+    //     }
+    //     if(slide < 0) {
+    //         slide = (slides.length-1);
+    //     }
+    //     console.log(slide);
+    //     $('.slides .slide').removeClass('active');
+    //     $('.slides .slide:eq('+slide+')').addClass('active');
+    // }, 3000); // repeat forever, polling every 3 seconds
 
     if(slide >= slides.length) {
         slide = 0;
@@ -60,7 +58,9 @@ function slideShow() {
     if(slide < 0) {
         slide = (slides.length-1);
     }
-
+    console.log(slide);
+    $('.slides .slide').removeClass('active');
+    $('.slides .slide:eq('+slide+')').addClass('active');
 }
 
 
@@ -306,17 +306,16 @@ function navigate(action) {
             $('.message.play-icon').hide();
             $('.message.pause-icon').toggle().animateCss('zoomIn');
             playState = 'pause';
-            console.log(playState);
         }
         else {
             $('.message.pause-icon').hide();
             $('.message.play-icon').toggle().animateandhideCss('zoomIn');
             playState = 'play';
-            console.log(playState);
         }
     }
     if(action == "navigate-back") {
         currentScreen = 'screen-home';
+        $('.message').hide();
         $('.screen').hide();
     }
 
