@@ -5222,6 +5222,7 @@
   bottom: 30px;
   border: 1px solid red;
   text-align: center;
+  overflow: hidden;
 }
 .slide.active {
   display: block;
@@ -5231,6 +5232,16 @@
   bottom: 10px;
   left: 10px;
   font-family: monospace;
+}
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-position: 50% 50%;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
 }
 .slide1 {
   background-color: yellow;
@@ -5328,11 +5339,6 @@ BODY {
 .screen .label {
   font-size: 24px;
 }
-.screen .btn .label {
-  padding: 4px 5px;
-  border: 1px solid #333;
-  border-radius: 10px;
-}
 .screen .navigate-left {
   top: 50%;
   left: 0;
@@ -5405,6 +5411,7 @@ BODY {
   position: fixed;
   bottom: 10px;
   left: 10px;
+  margin: 0;
   font-size: 15px;
   color: #000;
   text-shadow: none;

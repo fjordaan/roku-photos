@@ -23,7 +23,22 @@ var currentScreen = 'screen-home';
 var orderMessage = 'Photos displayed in random order';
 var lockMessage = 'Unlocked: displaying all photos';
 var playState    = 'play';
+var slides = $('.slides').children('.slide');
+console.log(slides);
+var slide = 0;
 $('.screen').hide();
+
+// Slideshow
+function slideShow(slide) {
+    console.log(slide);
+    // console.log(slides.length);
+    if(slide > slides.length) {
+        slide = 0;
+    }
+    $('.slides .slide').removeClass('active');
+    $('.slides .slide:eq('+slide+')').addClass('active');
+}
+slideShow(slide);
 
 
 // Binding keys for navigation
@@ -210,6 +225,8 @@ function navigate(action) {
         switch(currentScreen) {
             case 'screen-home':
                 currentScreen = 'screen-home';
+                slide--;
+                slideShow(slide);
                 break;
             case 'screen-order':
                 newOrder('chronological-order');
@@ -232,6 +249,8 @@ function navigate(action) {
         switch(currentScreen) {
             case 'screen-home':
                 currentScreen = 'screen-home';
+                slide++;
+                slideShow(slide);
                 break;
             case 'screen-order':
                 newOrder('alphabetical-order');
@@ -274,12 +293,11 @@ function navigate(action) {
     }
 
     // console.log(action);
-    console.log(currentScreen);
-    console.log(currentOrder);
-    console.log(currentLock);
+    // console.log(currentScreen);
+    // console.log(currentOrder);
+    // console.log(currentLock);
     
 };
-
 
 // Make remote draggable
 // https://css-tricks.com/snippets/jquery/draggable-without-jquery-ui/
@@ -327,3 +345,9 @@ function navigate(action) {
 })(jQuery);
 
 $('.remote').drags();
+
+
+
+
+
+
