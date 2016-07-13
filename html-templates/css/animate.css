@@ -1506,21 +1506,21 @@
 
 // FJ: modified fadeOut to start fading halfway through animation only
 @-webkit-keyframes fadeOut {
-  50% {
+  10%, 50% {
     opacity: 1;
   }
 
-  to {
+  from, to {
     opacity: 0;
   }
 }
 
 @keyframes fadeOut {
-  50% {
+  10%, 50% {
     opacity: 1;
   }
 
-  to {
+  from, to {
     opacity: 0;
   }
 }

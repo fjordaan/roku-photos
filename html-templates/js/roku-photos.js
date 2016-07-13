@@ -200,6 +200,14 @@ function pause() {
 
 function navigateGo() {
     $('.screen').hide();
+    // $(".screen button")
+    //     .on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd",
+    //      function(e){
+    //         $('.screen .'+whichButton).removeClass('activated');
+    //         $('.screen button').show();
+    //         $('.screen').hide();
+    //         $(this).off(e);
+    //      });
     if(currentScreen !== "screen-home") {
         $('.' + currentScreen).show();
     }
