@@ -28,7 +28,7 @@
 | Right           | Next slide                                           |
 | OK              | Show Main menu                                       |
 | Fast backward   | Go back 10 slides                                    |
-| Play / Pause    | Pause slideshow                                      |
+| Play / Pause    | Pause / play slideshow                               |
 | Fast forward    | Go forward 10 slides                                 |
 | Reload          | Nothing                                              |
 | Asterisk        | Nothing                                              |
@@ -44,7 +44,7 @@
 | Right           | Next menu level (if item has a submenu), otherwise nothing |
 | OK              | Select menu item (action depends on menu item)             |
 | Fast backward   | Go back 10 slides                                          |
-| Play / Pause    | Pause slideshow                                            |
+| Play / Pause    | Pause / play slideshow                                     |
 | Fast forward    | Go forward 10 slides                                       |
 | Reload          | Nothing                                                    |
 | Asterisk        | Nothing                                                    |
