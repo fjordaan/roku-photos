@@ -1,0 +1,48 @@
+# Menu structure
+
+## Exit menu
+- Cancel
+- Exit screensaver
+
+## Main menu
+- Photos
+  - Displaying all photos (default)
+  - This folder only
+  - This day only
+  - This month only
+  - This year only
+  - With tag...
+    - Tag 1
+    - Tag 2
+    - Tag 3
+    - Close menu
+  - Close menu
+- Order
+  - Random order
+  - Chronological order
+  - A-Z by filename
+  - Close menu
+- Settings
+  - Slide duration
+    - 1 second
+    - 2 seconds
+    - 5 seconds
+    - 10 seconds
+    - Manual advance
+    - Close menu
+  - Play settings
+    - Looping
+    - Stop at the end
+    - Close menu
+  - Video settings
+    - Include videos
+    - Don't include videos
+    - Sound on
+    - Sound off
+    - Close menu
+  - Library
+    - Path 1
+    - Path 2
+    - Close menu
+  - Reset all to defaults
+- Close menu
