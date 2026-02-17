@@ -32,11 +32,13 @@
     - Close menu
   - Play settings
     - Looping
-    - Stop at the end
+    - Stop after last slide
     - Close menu
   - Picture settings
     - Fit to screen (no cropping)
     - Fill screen
+    - Fill screen (landscape only)
+    - Close menu
   - Video settings
     - Include videos
     - Don't include videos
