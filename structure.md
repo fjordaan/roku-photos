@@ -34,6 +34,9 @@
     - Looping
     - Stop at the end
     - Close menu
+  - Picture settings
+    - Fit to screen (no cropping)
+    - Fill screen
   - Video settings
     - Include videos
     - Don't include videos
