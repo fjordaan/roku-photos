@@ -12,6 +12,7 @@
   - This month only
   - This year only
   - With tag...
+    - Tagged photos only
     - Tag 1
     - Tag 2
     - Tag 3
