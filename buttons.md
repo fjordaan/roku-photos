@@ -31,8 +31,8 @@
 | Fast backward   | Go back 10 slides                                    |
 | Play / Pause    | Pause / play slideshow                               |
 | Fast forward    | Go forward 10 slides                                 |
-| Reload          | Nothing                                              |
-| Asterisk        | Nothing                                              |
+| Reload          | Shortcut to Photos menu                              |
+| Asterisk        | Shortcut to Settings menu                            |
   
 ## What do the buttons do? (On menu)
 | Button          | Action                                                     |
@@ -47,5 +47,5 @@
 | Fast backward   | Go back 10 slides                                          |
 | Play / Pause    | Pause / play slideshow                                     |
 | Fast forward    | Go forward 10 slides                                       |
-| Reload          | Nothing                                                    |
-| Asterisk        | Nothing                                                    |
+| Reload          | Shortcut to Photos menu                                    |
+| Asterisk        | Shortcut to Settings menu                                  |
