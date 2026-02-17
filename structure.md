@@ -5,7 +5,7 @@
 - Exit screensaver
 
 ## Main menu
-- Photos
+- **Photos**
   - Displaying all photos (default)
   - This folder only
   - This day only
@@ -17,12 +17,12 @@
     - Tag 3
     - Close menu
   - Close menu
-- Order
+- **Order**
   - Random order
   - Chronological order
   - A-Z by filename
   - Close menu
-- Settings
+- **Settings**
   - Slide duration
     - 1 second
     - 2 seconds
@@ -48,6 +48,9 @@
   - Library
     - Path 1
     - Path 2
+    - Close menu
+  - Blocklist
+    - Add photo to blocklist
     - Close menu
   - Reset all to defaults
 - Close menu
