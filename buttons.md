@@ -1,6 +1,7 @@
 # Buttons
 
-<img width="312" height="681" alt="image" align="right" src="https://github.com/user-attachments/assets/91b8e192-6923-4724-860d-74138e01c574" />
+<img width="312" height="704" alt="image" align="right" src="https://github.com/user-attachments/assets/0891073f-8ea1-4f96-81d7-823ff97f52f0" />
+
 
 ## What are the buttons on the Roku remote?
 - Back
