@@ -33,7 +33,7 @@ Development stages, starting with core functionality, moving on to nice-to-have 
 
 ## Stage 4: More options using dynamic playlists
 
-- Index capabilities that power dynamic playlist generation
+- EXIF / IPTC index capabilities that power dynamic playlist generation
 - Photos menu
   - This Day / Month / Year
   - With tag
