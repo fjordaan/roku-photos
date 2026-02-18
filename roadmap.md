@@ -29,7 +29,10 @@ Development stages, starting with core functionality, moving on to nice-to-have 
   - Slide duration
   - Looping / Stop at end
 - Buttons (in menus): Up / Down / Left / Right / OK / Back
-- Buttons (in slideshow): Back 10, Forward 10, Down (Display photo properties)
+- Buttons (in slideshow)
+-   Back 10, Forward 10
+-   Down (Display photo properties)
+-   Reload, Asterisk: Shortcuts to Photos, Settings
 
 ## Stage 4: More options using dynamic playlists
 
