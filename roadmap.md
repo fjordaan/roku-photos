@@ -44,6 +44,7 @@ Development stages, starting with core functionality, moving on to nice-to-have 
  
 ## Stage 5: Nice-to-haves
 
+- Automatic activation as Roku native screensaver
 - Video support
 - Picture settings (fit / fill / crop)
 - Thumbnails (Up button)
