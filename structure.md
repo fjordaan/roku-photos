@@ -12,7 +12,8 @@
   - This month only
   - This year only
   - With tag...
-    - Tagged photos only
+    - Clear tags
+    - Any tag (only show photos that have tags)
     - Tag 1
     - Tag 2
     - Tag 3
