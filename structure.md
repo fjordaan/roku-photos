@@ -6,10 +6,10 @@ Menu items consist of:
 
 ```| √ | Title          | Label | > |```
 
-- **Checkmark** indicates if a boolean option is currently selected. Permanently takes up room whether visible or not.
+- **Checkmark (optional)** indicates if a boolean option is currently selected. Permanently takes up room whether visible or not.
 - **Title** of menu option.
-- **Label (optional)** shows current menu option value. Truncated with ellipsis if necessary.
-- **Disclosure arrow** if the option has a submenu.
+- **Label (optional)** shows current menu option value. Truncated with ellipsis if necessary. Could be the Title of the currently selected submenu option, or 'Short label' if available, or ### (the number of photos in that selection)
+- **Disclosure arrow (optional)** if the option has a submenu.
 
 ## Exit menu
 - Cancel
