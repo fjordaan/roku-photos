@@ -1,5 +1,16 @@
 # Menu structure
 
+## Menu design ##
+<img width="511" height="311" align="right" alt="menu wireframe" src="https://github.com/user-attachments/assets/2b049819-e0fc-47c6-994f-f09f7db7ca42" />
+Menu items consist of:
+
+```| √ | Title          | Label | > |```
+
+- **Checkmark** indicates if a boolean option is currently selected. Permanently takes up room whether visible or not.
+- **Title** of menu option.
+- **Label (optional)** shows current menu option value. Truncated with ellipsis if necessary.
+- **Disclosure arrow** if the option has a submenu.
+
 ## Exit menu
 - Cancel
 - Exit screensaver
@@ -12,7 +23,6 @@
   - This month only
   - This year only
   - With tag...
-    - Clear tags
     - Any tag (only show photos that have tags)
     - Tag 1
     - Tag 2
@@ -20,35 +30,35 @@
     - Close menu
   - Close menu
 - **Order**
-  - Random order
+  - Random order (default)
   - Chronological order
   - A-Z by filename
   - Close menu
 - **Settings**
   - Slide duration
     - 1 second
-    - 2 seconds
+    - 2 seconds (default)
     - 5 seconds
     - 10 seconds
     - Manual advance
     - Close menu
   - Play settings
-    - Looping
+    - Looping (default)
     - Stop after last slide
     - Close menu
   - Picture settings
-    - Fit to screen (no cropping)
+    - Fit to screen (default)
     - Fill screen
     - Fill screen (landscape only)
     - Close menu
   - Video settings
     - Include videos
-    - Don't include videos
+    - Don't include videos (default)
     - Sound on
-    - Sound off
+    - Sound off (default)
     - Close menu
   - Library
-    - Path 1
+    - Path 1 (default)
     - Path 2
     - Close menu
   - Blocklist
