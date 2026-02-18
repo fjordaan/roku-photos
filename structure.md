@@ -45,6 +45,8 @@ Menu items consist of:
   - Play settings
     - Looping (default)
     - Stop after last slide
+    - Dissolve (default)
+    - No transition
     - Close menu
   - Picture settings
     - Fit to screen (default)
