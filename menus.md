@@ -1,4 +1,4 @@
-# Menu structure
+# Menus
 
 ## Menu design ##
 <img width="511" height="311" align="right" alt="menu wireframe" src="https://github.com/user-attachments/assets/2b049819-e0fc-47c6-994f-f09f7db7ca42" />
@@ -10,6 +10,13 @@ Menu items consist of:
 - **Title** of menu option.
 - **Label (optional)** shows current menu option value. Truncated with ellipsis if necessary. Could be the Title of the currently selected submenu option, or 'Short label' if available, or ### (the number of photos in that selection)
 - **Disclosure arrow (optional)** if the option has a submenu.
+
+## Menu operation
+- Use `Up` & `Down` and `OK` button to select menu options
+- Menus wrap, so going up from the top menu goes to the last menu item, and vice versa
+- When on an option with a submenu, both `OK` and `Right` buttons will enter the submenu
+- When inside a submenu, both `Back` and `Left` will go up to the previous menu level
+- When at the top menu level, `Back` will close the menu
 
 ## Exit menu
 - Cancel
