@@ -56,7 +56,7 @@ Where I write ### it means the number of photos in that selection.
 
 ##### Tag n
 - One menu item for every IPTC tag in the current photo
-- **Type:** Boolean option. Display checkmark if selected. CAN be combined with other options in Tag sub-submenu
+- **Type:** Boolean option. Display checkmark if selected. CAN be combined with other options in Tag sub-submenu. (So you can select multiple tags.)
 - **Function:** Sets Playlist to all photos in Library that includes the selected IPTC tag
 
 ##### Close menu
