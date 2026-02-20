@@ -11,7 +11,7 @@ A personal photo screensaver for NAS-connected Roku smart TV devices.
 - [functionality.md](functionality.md) - What each menu item does
 - [roadmap.md](roadmap.md) - Development stages: in what order to build the functionality
 - [devices.md](devices.md) - Details of the devices the app will run on (Roku, NAS)
-- [components.md](components.md) - A breakdown of all UI components, their design and composition. Slideshow, Menu, Description, Thumbnails
+- [components.md](components.md) - A breakdown of all UI components, their design and composition
 - `designs/` - Design mockups
 
 ## IGNORE
