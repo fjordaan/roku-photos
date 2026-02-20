@@ -1,10 +1,10 @@
 # Project description
 
-This is a slideshow app to run on a Roku 3 set-top box.  
-It displays photos stored on a Synology NAS connected to the same network.  
-It is controlled by the Roku remote.  
-The remote is used to step forward and back through photos, and also change the playlist and other settings via on-screen menus.
-It should also have the ability to start automatically as a screensaver.
+- This is a slideshow app to run on a Roku 3 set-top box.  
+- It displays photos stored on a Synology NAS connected to the same network.  
+- It is controlled by the Roku remote.  
+- The remote is used to step forward and back through photos, and also change the playlist and other settings via on-screen menus.
+- It should also have the ability to start automatically as a screensaver.
 
 ## Components
 
