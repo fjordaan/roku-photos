@@ -54,3 +54,9 @@ Development stages, starting with core functionality, moving on to nice-to-have 
 - Select Library / Custom playlists
 - Photo blocklist
 - Browse folders
+
+## Stage 6: The future
+This is entirely notional, and may never happen.
+
+- Making this available to other Roku users (perhaps via Roku app store)
+- Support for other platforms (devices, remotes, NAS)
