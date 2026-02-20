@@ -7,6 +7,7 @@ A breakdown of all UI components, their design and composition. Slideshow, Menu,
 - In normal operation the slideshow has no visible user interface, apart from a minimal HUD (1 / n) showing in the top left corner.
 - The HUD shows the current slide number and the total number of slides in the current playlist, after which the slideshow will loop or stop.
 - When the user presses the `Play/Pause` button, a large Play or Pause icon will show in the centre of the screen for 2 seconds.
+- When the user presses the `REW` or `FWD` buttons, a large `<< 10` or `>> 10` icon will show in the centre of the screen for 2 seconds.
 - Button actions during slideshow documented in [buttons.md](buttons.md)
 
 ## Photo information overlay
