@@ -4,48 +4,48 @@
 
 
 ## What are the buttons on the Roku remote?
-- Back
-- Home
-- Up
-- Down
-- Left
-- Right
-- OK
-- Fast backward
-- Play / Pause
-- Fast forward
-- Reload
-- Asterisk
+- `Back`
+- `Home`
+- `Up`
+- `Down`
+- `Left`
+- `Right`
+- `OK`
+- `REW` (Fast backward)
+- `Play/Pause`
+- `FWD` (Fast forward)
+- `Replay`
+- `Asterisk` (Options)
 
 
 ## What do the buttons do? (No menu)
-| Button          | Action                                               |
-|-----------------|------------------------------------------------------|
-| Back            | Exit app (show Exit menu)                            |
-| Home            | Roku home (exit app without menu)                    |
-| Up              | Show thumbnails / Hide file properties if shown      |
-| Down            | Show file properties / Hide thumbnails if shown      |
-| Left            | Previous slide                                       |
-| Right           | Next slide                                           |
-| OK              | Show Main menu                                       |
-| Fast backward   | Go back 10 slides                                    |
-| Play / Pause    | Pause / play slideshow                               |
-| Fast forward    | Go forward 10 slides                                 |
-| Reload          | Shortcut to Photos menu                              |
-| Asterisk        | Shortcut to Settings menu                            |
+| Button            | Action                                               |
+|-------------------|------------------------------------------------------|
+| `Back`            | Exit app (show Exit menu)                            |
+| `Home`            | Roku home (exit app without menu)                    |
+| `Up`              | Show thumbnails / Hide file properties if shown      |
+| `Down`            | Show file properties / Hide thumbnails if shown      |
+| `Left`            | Previous slide                                       |
+| `Right`           | Next slide                                           |
+| `OK`              | Show Main menu                                       |
+| `REW`             | Go back 10 slides                                    |
+| `Play/Pause`      | Pause / play slideshow                               |
+| `FWD`             | Go forward 10 slides                                 |
+| `Replay`          | Shortcut to Photos menu                              |
+| `Asterisk`        | Shortcut to Settings menu                            |
   
 ## What do the buttons do? (On menu)
-| Button          | Action                                                     |
-|-----------------|------------------------------------------------------------|
-| Back            | Close menu / Previous menu level (if in a submenu)         |
-| Home            | Roku home (exit app)                                       |
-| Up              | Previous menu item                                         |
-| Down            | Next menu item                                             |
-| Left            | Previous menu level (if in a submenu), otherwise nothing   |
-| Right           | Next menu level (if item has a submenu), otherwise nothing |
-| OK              | Select menu item (action depends on menu item)             |
-| Fast backward   | Go back 10 slides                                          |
-| Play / Pause    | Pause / play slideshow                                     |
-| Fast forward    | Go forward 10 slides                                       |
-| Reload          | Shortcut to Photos menu                                    |
-| Asterisk        | Shortcut to Settings menu                                  |
+| Button            | Action                                                     |
+|-------------------|------------------------------------------------------------|
+| `Back`            | Close menu / Previous menu level (if in a submenu)         |
+| `Home`            | Roku home (exit app)                                       |
+| `Up`              | Previous menu item                                         |
+| `Down`            | Next menu item                                             |
+| `Left`            | Previous menu level (if in a submenu), otherwise nothing   |
+| `Right`           | Next menu level (if item has a submenu), otherwise nothing |
+| `OK`              | Select menu item (action depends on menu item)             |
+| `REW`             | Go back 10 slides                                          |
+| `Play/Pause`      | Pause / play slideshow                                     |
+| `FWD`             | Go forward 10 slides                                       |
+| `Replay`          | Shortcut to Photos menu                                    |
+| `Asterisk`        | Shortcut to Settings menu                                  |
