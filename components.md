@@ -25,6 +25,7 @@ A breakdown of all UI components, their design and composition. Slideshow, Menu,
 ## Menu
 
 - Menu appears in the centre of the screen, using a simple visual style.
+- It sits ABOVE all other content, including the overlays.
 - Menu item structure and menu contents documented in [menus.md](menus.md)
 - Button actions during menu documented in [buttons.md](buttons.md)
 - Menu option functionality documented in [functionality.md](functionality.md)
@@ -34,3 +35,4 @@ A breakdown of all UI components, their design and composition. Slideshow, Menu,
 - When the `Up` button is pressed during slideshow, a top semitransparent overlay appears showing a row of thumbnail images with the photos in the current playlist.
 - This mode persists until the user presses the `Down` arrow during slideshow, which hides the thumbnails overlay.
 - The current photo is highlighted and it is always in the horizontal centre, unless it has reached the end or beginning of the playlist.
+- The HUD (1 / n) sits ABOVE the Thumbnails overlay.
