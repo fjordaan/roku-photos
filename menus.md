@@ -70,6 +70,10 @@ Menu items consist of:
     - Path 1 (default)
     - Path 2
     - Close menu
+  - Activation
+    - Start manually (default)
+    - Start automatically as screensaver
+    - Close menu
   - Blocklist
     - Add photo to blocklist
     - Close menu
