@@ -17,6 +17,7 @@
 - `Replay`
 - `Asterisk` (Options)
 
+Other Roku remotes may have different buttons, but we will ignore that for now and focus on these buttons only.
 
 ## What do the buttons do? (No menu)
 | Button            | Action                                               |
