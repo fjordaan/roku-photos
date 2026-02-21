@@ -5,8 +5,9 @@ What do each of the menu items in [menus.md ](menus.md) do?
 Boolean options display a checkmark if selected. Activating them again will not remove the checkmark, the user has to select a different option. 
 Where I write ### it means the number of photos in that selection.
 
-After selecting a Boolean menu option, the checkmarks and labels on the menu should be updated, and the menu should automatically close after 1 second.  
-However, in the following menus, the menu should not close after selecting an option (except where specified otherwise below):
+After selecting a Boolean menu option, the checkmarks and labels on the menu should be updated, and the menu should automatically close after 2 seconds. If the user presses `Back` during those 2 seconds, do not close the menu.
+
+However, in the following menus, the menu should NOT close after selecting an option (except where specified otherwise in the descriptions below):
 - **Settings** menu
 - **Photos: With tag** sub-submenu
 
