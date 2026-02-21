@@ -13,7 +13,10 @@ There will be 2 parts to the app:
 - The server app, running on the NAS, which creates playlists dynamically based on user choices. 
 
 ## Slideshow capabilities
-- User can navigate to all previous and upcoming photos, even when using a playlist with random rather than sequential photos.
-- User can select playlists based on photo EXIF or IPTC metadata, such as "All photos on this date" and "All photos with this tag"
+- Slideshow advances automatically, by default every 2 seconds
+- User can use the `Back` / `Forward` buttons to navigate to all previous and upcoming photos in the current playlist, even in playlists with random rather than sequential order.
+- User can use `Play/Pause` button to pause the slideshow. It stays paused until `Play/Pause` is pressed again.
+- While paused it can be manually controlled using the `Back` / `Forward` buttons.
+- User can use the menu to switch to a new playlist based on the properties of the current photo, such as "All photos on this date" and "All photos with this tag", using EXIF or IPTC metadata.
 
 ## Server capabilities
