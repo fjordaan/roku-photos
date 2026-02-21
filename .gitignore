@@ -1,0 +1,14 @@
+# VS Code — excluded because launch.json contains the Roku dev password
+.vscode/launch.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+venv/
+.venv/
+
+# Server database and index (generated, not source)
+server/*.db
+server/*.sqlite

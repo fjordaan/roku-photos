@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="MainScene" extends="Scene">
+    <script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
+    <children>
+        <!-- Background shown while photo loads -->
+        <Rectangle
+            color="0x1a1a2eff"
+            width="1280"
+            height="720"
+        />
+
+        <!-- Full-screen photo -->
+        <Poster
+            id="photo"
+            width="1280"
+            height="720"
+            scaleMode="zoom-to-fit"
+        />
+
+        <!-- Status: filename or error (top-left) -->
+        <Label
+            id="status"
+            text="Loading..."
+            color="0xffffffff"
+            font="font:SmallSystemFont"
+            translation="[20, 20]"
+        />
+
+        <!-- Last button pressed (top-right) -->
+        <Label
+            id="currentKey"
+            text=""
+            color="0xaaaaaaff"
+            font="font:SmallSystemFont"
+            horizAlign="right"
+            width="400"
+            translation="[860, 20]"
+        />
+    </children>
+</component>

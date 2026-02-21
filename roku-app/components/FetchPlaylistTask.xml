@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="FetchPlaylistTask" extends="Task">
+    <interface>
+        <field id="url" type="string" />
+        <field id="jsonResult" type="string" value="" />
+        <field id="fetchError" type="string" value="" />
+    </interface>
+    <script type="text/brightscript" uri="pkg:/components/FetchPlaylistTask.brs" />
+</component>
