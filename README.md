@@ -14,6 +14,6 @@ A personal photo slideshow screensaver for NAS-connected Roku smart TV devices.
 - [components.md](components.md) - A breakdown of all UI components, their design and composition
 - `designs/` - Design mockups
 
-## IGNORE
-- `wireframes/` - out of date UI
-- `html-templates` - out of date interactive HTML/JS demo
+## History
+- 2017: created initial UI in OmniGraffle, and HTML demo. Did not use a menu system.
+- 2022: created menu-based UI in Figma.

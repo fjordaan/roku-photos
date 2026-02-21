@@ -47,7 +47,6 @@ Menu items consist of:
     - 2 seconds (default)
     - 5 seconds
     - 10 seconds
-    - Manual advance
     - Close menu
   - Play settings
     - Looping (default)
