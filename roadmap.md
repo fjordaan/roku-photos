@@ -58,5 +58,6 @@ Development stages, starting with core functionality, moving on to nice-to-have 
 ## Stage 6: The future
 This is entirely notional, and may never happen.
 
-- Making this available to other Roku users (perhaps via Roku app store)
+- Making my NAS library available to other Roku boxes I control, via a Tailscale network
+- Making the app available to other Roku users (perhaps via Roku app store, or otherwise just via Github)
 - Support for other platforms (devices, remotes, NAS)
