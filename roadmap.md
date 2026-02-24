@@ -53,7 +53,7 @@ Development stages, starting with core functionality, moving on to nice-to-have 
 - Thumbnails (`Up` button)
 - Select Library / Custom playlists
 - Photo blocklist
-- Browse thumbnails and folders (via `Up` from thumbnails)
+- Browse thumbnails and folders (via `Up` `Up` and `Down` `Down`)
 
 ## Stage 6: The future
 This is entirely notional, and may never happen.
