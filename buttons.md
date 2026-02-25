@@ -2,7 +2,6 @@
 
 <img width="312" height="704" alt="image" align="right" src="https://github.com/user-attachments/assets/0891073f-8ea1-4f96-81d7-823ff97f52f0" />
 
-
 ## What are the buttons on the Roku remote?
 - `Back`
 - `Home`
@@ -50,3 +49,19 @@ Other Roku remotes may have different buttons, but we will ignore that for now a
 | `FWD`             | Go forward 10 slides                                       |
 | `Replay`          | Shortcut to Photos menu                                    |
 | `Asterisk`        | Shortcut to Settings menu                                  |
+
+## What do the buttons do? (On "End of slideshow" screen)
+| Button            | Action                                                     |
+|-------------------|------------------------------------------------------------|
+| `Back`            | Close menu |
+| `Home`            | Roku home (exit app)                                       |
+| `Up`              | Previous end menu item (looping) |
+| `Down`            | Next end menu item (looping) |
+| `Left`            | Last photo in playlist, exiting End screen   |
+| `Right`           | Nothing |
+| `OK`              | Select current end menu item             |
+| `REW`             | Go back 10 slides, exiting End screen |
+| `Play/Pause`      | Pause / play slideshow                                     |
+| `FWD`             | Nothing                                       |
+| `Replay`          | Restart playlist                                    |
+| `Asterisk`        | Nothing                                  |
