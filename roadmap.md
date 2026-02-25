@@ -15,6 +15,7 @@ Development stages, starting with core functionality, moving on to nice-to-have 
 - Display them as a slideshow in random order
 - Ability to go back to previously displayed photos, and forward
 - Buttons: `Left` and `Right` and `Play/Pause`
+- Roku app should have homescreen logo and it should work every time
 
 ## Stage 3: Screensaver menus: Core options
 
