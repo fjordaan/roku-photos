@@ -2,6 +2,8 @@
 
 Menu option functionality is documented in [functionality.md](functionality.md)
 
+Opening a menu does not automatically pause the slideshow. See [buttons.md](buttons.md) for what the buttons do when a menu is open.
+
 ## Menu design ##
 <img width="511" height="311" align="right" alt="menu wireframe" src="https://github.com/user-attachments/assets/2b049819-e0fc-47c6-994f-f09f7db7ca42" />
 Menu items consist of:
