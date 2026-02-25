@@ -29,11 +29,14 @@ Development stages, starting with core functionality, moving on to nice-to-have 
 - Implement Settings menu
   - Slide duration
   - Looping / Stop at end
-- Buttons (in menus): `Up` / `Down` / `Left` / `Right` / `OK` / `Back`
+- Buttons (in menus)
+  - `Up` / `Down` / `Left` / `Right` / `OK` / `Back`
 - Buttons (in slideshow)
--   `REW` Back 10, `FWD` Forward 10
--   `Down` (Display photo properties)
--   `Replay`, `Asterisk`: Shortcuts to Photos, Settings
+  - `REW` Back 10, `FWD` Forward 10
+  - `Down` (Display photo properties overlay)
+  - `Replay`, `Asterisk`: Shortcuts to Photos, Settings
+- Implement Properties overlay
+- Implement "End of slideshow" screen, with button actions
 
 ## Stage 4: More options using dynamic playlists
 
@@ -51,7 +54,7 @@ Development stages, starting with core functionality, moving on to nice-to-have 
 - Automatic activation as Roku native screensaver
 - Video support
 - Picture settings (fit / fill / crop)
-- Thumbnails (`Up` button)
+- Thumbnails overlay (`Up` button)
 - Select Library / Custom playlists
 - Photo blocklist
 - Browse thumbnails and folders (via `Up` `Up` and `Down` `Down`)
