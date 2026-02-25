@@ -146,9 +146,9 @@ However, in the following menus, the menu should NOT close after selecting an op
 ##### Stop after last slide
 - **Type:** Boolean option. Display checkmark if selected. Cannot be combined with the previous option.
 - **Function:** When slideshow reaches the end of the playlist, show the "End of slideshow" screen (see `designs/`), with 2 selectable options:
-  - Restart (previous selection & settings)
-  - Restart (all photos, random)
-- On "End of slideshow" screen, user can still use the buttons to navigate back, but they cannot open the menu with `OK`. Pressing `Back` will open the Exit menu.
+  - Restart (current playlist & settings)
+  - Restart (all photos, random order)
+- On "End of slideshow" screen, user can still use `Left` to navigate back to the last slide, but they cannot open the menu with `OK`. Pressing `Back` will open the Exit menu.
 
 ##### Dissolve (default)
 - **Type:** Boolean option. Display checkmark if selected. Cannot be combined with the next option.
