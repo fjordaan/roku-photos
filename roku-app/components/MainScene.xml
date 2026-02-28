@@ -8,13 +8,28 @@
         <!-- Top-left "current / total" counter -->
         <HUDComponent id="hud" />
 
+        <!-- Current photo path (bottom-left) -->
+        <Rectangle
+            color="0x00000099"
+            width="1280"
+            height="28"
+            translation="[0, 688]"
+        />
+        <Label
+            id="photoPath"
+            text=""
+            color="0xffffffff"
+            font="font:SmallSystemFont"
+            translation="[12, 692]"
+        />
+
         <!-- Error message (hidden by default) -->
         <Label
             id="errorLabel"
             text=""
             color="0xff4444ff"
             font="font:SmallSystemFont"
-            translation="[20, 680]"
+            translation="[20, 660]"
             visible="false"
         />
     </children>

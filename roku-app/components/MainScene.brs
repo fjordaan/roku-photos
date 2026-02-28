@@ -3,6 +3,7 @@ sub init()
 
     m.slideshow  = m.top.findNode("slideshow")
     m.hud        = m.top.findNode("hud")
+    m.photoPath  = m.top.findNode("photoPath")
     m.errorLabel = m.top.findNode("errorLabel")
 
     m.playlist = []
@@ -16,7 +17,7 @@ sub init()
     slideDuration = reg.Read("slide_duration")
     if nasIp = ""         then nasIp        = "192.168.1.51"
     if serverPort = ""    then serverPort   = "8080"
-    if slideDuration = "" then slideDuration = "2"
+    if slideDuration = "" then slideDuration = "5"
 
     m.serverBase = "http://" + nasIp + ":" + serverPort
     m.slideshow.slideDuration = Val(slideDuration)
@@ -59,6 +60,7 @@ sub showPhoto(index as Integer)
     m.slideshow.photoUrl = photo.url
     m.hud.current = m.index + 1
     m.hud.total   = m.playlist.count()
+    m.photoPath.text = photo.path
 end sub
 
 sub onAdvance()

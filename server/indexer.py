@@ -44,7 +44,9 @@ def index_library():
     scanned = 0
     upserted = 0
 
-    for dirpath, _, filenames in os.walk(LIBRARY_ROOT):
+    for dirpath, dirs, filenames in os.walk(LIBRARY_ROOT):
+        # Skip Synology metadata dirs (@eaDir, @sharebin, etc.)
+        dirs[:] = [d for d in dirs if not d.startswith("@")]
         for filename in filenames:
             ext = os.path.splitext(filename)[1].lower()
             if ext not in SUPPORTED_EXTENSIONS:

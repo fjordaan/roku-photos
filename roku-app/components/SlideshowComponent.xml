@@ -4,9 +4,9 @@
         <!-- Set to trigger photo display update -->
         <field id="photoUrl"      type="string"  value=""    onChange="onPhotoUrlChange" />
         <!-- true = paused, false = running -->
-        <field id="paused"        type="boolean" value="false" onChange="onPausedChange" />
+        <field id="paused"        type="boolean" value="true"  onChange="onPausedChange" />
         <!-- Slide duration in seconds -->
-        <field id="slideDuration" type="float"   value="2.0" onChange="onSlideDurationChange" />
+        <field id="slideDuration" type="float"   value="5.0" onChange="onSlideDurationChange" />
         <!-- Fires on each timer tick; alwaysNotify so observers fire even if value stays true -->
         <field id="advance"       type="boolean" value="false" alwaysNotify="true" />
     </interface>
@@ -20,19 +20,19 @@
             height="720"
         />
 
-        <!-- Full-screen photo -->
+        <!-- Full-screen photo; scaleToFit centres and letterboxes without re-fetching -->
         <Poster
             id="photo"
             width="1280"
             height="720"
-            scaleMode="zoom-to-fit"
+            loadDisplayMode="scaleToFit"
         />
 
         <!-- Auto-advance timer -->
         <Timer
             id="timer"
             repeat="true"
-            duration="2.0"
+            duration="5.0"
         />
     </children>
 </component>

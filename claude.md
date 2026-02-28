@@ -57,7 +57,7 @@ Defaults: slide duration 2s, random order, all photos, looping, dissolve transit
 | GET | `/api/playlist` | Returns JSON array of photo objects. Params: `type` (all/folder/date/month/year/tag), `order` (random/chrono/az), `path`, `date`, `tag` |
 | GET | `/api/tags` | Returns list of all IPTC tags in the library |
 | POST | `/api/blocklist` | Adds a photo path to the blocklist |
-| GET | `/photos/<path>` | Serves a photo file |
+| GET | `/photos/<path>?w=<px>` | Serves a photo file; if `?w=` is provided, resizes to that width and caches result |
 | GET | `/api/status` | Health check |
 
 ### EXIF/IPTC date resolution
@@ -86,3 +86,6 @@ roku-photos/
 - Settings stored on Roku (not server-side)
 - Photos served through Flask initially; switch to nginx in front if performance is a problem
 - Library paths are configurable via registry (not hardcoded), defaulting to `/volume1/Pictures`
+- **Server-side resize + disk cache**: `serve_photo` resizes originals to `RESIZE_WIDTH` (1280px) using ImageMagick (`convert`) via subprocess before sending, and caches the result in `CACHE_DIR` (`/volume1/roku-photo-cache`). Pillow was not used because it cannot be built on the DS215j (ARM, Python 3.8, no pre-built wheels). Cache has no eviction — delete the directory manually to reclaim space. Theoretical max ~27 GB (110K photos × ~250 KB avg); practical size much smaller due to random access patterns. Revisit LRU eviction if cache grows unexpectedly large.
+- **Slideshow timer starts on load**: `SlideshowComponent` stops the timer when a new photo URL is set, and only starts it once `loadStatus = "ready"`. This ensures every photo gets the full slide duration of display time, regardless of how long it took to load. `onPausedChange` respects this: if unpausing while a photo is already loaded it starts the timer; otherwise `onLoadStatus` will start it when ready.
+- **EXIF rotation**: ImageMagick `-auto-orient` flag is applied during resize so photos are correctly oriented in the cache regardless of camera EXIF data.

@@ -1,7 +1,10 @@
 import os
+import random
 import sqlite3
+import hashlib
+import subprocess
 from flask import Flask, jsonify, send_file, abort, request
-from config import LIBRARY_ROOT, SERVER_PORT, NAS_IP, SUPPORTED_EXTENSIONS, DB_PATH, DEFAULT_PLAYLIST_LIMIT
+from config import LIBRARY_ROOT, SERVER_PORT, NAS_IP, SUPPORTED_EXTENSIONS, DB_PATH, DEFAULT_PLAYLIST_LIMIT, RESIZE_WIDTH, CACHE_DIR
 
 app = Flask(__name__)
 
@@ -11,15 +14,19 @@ app = Flask(__name__)
 # ---------------------------------------------------------------------------
 
 def iter_photos():
-    """Recursively yield all supported photo files under LIBRARY_ROOT."""
-    for dirpath, _, filenames in os.walk(LIBRARY_ROOT):
-        for filename in sorted(filenames):
+    """Recursively yield supported photo files under LIBRARY_ROOT in random order."""
+    for dirpath, dirs, filenames in os.walk(LIBRARY_ROOT):
+        # Skip Synology metadata dirs (@eaDir, @sharebin, etc.)
+        dirs[:] = [d for d in dirs if not d.startswith("@")]
+        random.shuffle(dirs)
+        random.shuffle(filenames)
+        for filename in filenames:
             if os.path.splitext(filename)[1].lower() in SUPPORTED_EXTENSIONS:
                 yield os.path.join(dirpath, filename)
 
 
 def photo_url(rel_path):
-    return f"http://{NAS_IP}:{SERVER_PORT}/photos/{rel_path}"
+    return f"http://{NAS_IP}:{SERVER_PORT}/photos/{rel_path}?w={RESIZE_WIDTH}"
 
 
 # ---------------------------------------------------------------------------
@@ -85,7 +92,31 @@ def serve_photo(photo_path):
         abort(403)
     if not os.path.isfile(abs_path):
         abort(404)
+    width = request.args.get("w", type=int)
+    if width:
+        return serve_resized(abs_path, width)
     return send_file(abs_path)
+
+
+def serve_resized(abs_path, width):
+    cache_key = hashlib.md5(f"{abs_path}:{width}".encode()).hexdigest()
+    cache_path = os.path.join(CACHE_DIR, cache_key + ".jpg")
+
+    if not os.path.isfile(cache_path):
+        os.makedirs(CACHE_DIR, exist_ok=True)
+        subprocess.run(
+            [
+                "convert",
+                "-auto-orient",          # correct EXIF rotation
+                "-resize", f"{width}x>", # resize to width, preserve ratio, no upscale
+                "-quality", "85",
+                abs_path,
+                cache_path,
+            ],
+            check=True,
+        )
+
+    return send_file(cache_path, mimetype="image/jpeg")
 
 
 if __name__ == "__main__":
