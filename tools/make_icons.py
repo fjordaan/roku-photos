@@ -33,16 +33,20 @@ def write_png(path, size, pixels_rgba):
 
 
 def play_pixels(size):
-    """White right-pointing filled triangle on transparent background."""
+    """White right-pointing filled triangle (▶) on transparent background."""
     pad = size // 8
-    pixels = []
     cy = size / 2
+    max_dist = cy - pad   # half-height of the triangle
+    pixels = []
     for y in range(size):
         for x in range(size):
-            dist_from_mid = abs(y - cy) / cy          # 0 at centre, 1 at top/bottom
-            right_edge = size - pad - 1
-            left_edge = pad + dist_from_mid * (size - 2 * pad)
-            if left_edge <= x <= right_edge:
+            dist = abs(y - cy)
+            if dist >= max_dist:
+                pixels.append((0, 0, 0, 0))
+                continue
+            # Right edge tapers from full-width at centre to zero at top/bottom
+            right_edge = pad + (size - 2 * pad) * (1 - dist / max_dist)
+            if pad <= x <= right_edge:
                 pixels.append((255, 255, 255, 255))
             else:
                 pixels.append((0, 0, 0, 0))
