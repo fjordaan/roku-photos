@@ -3,6 +3,8 @@
     <interface>
         <!-- Set to trigger photo display update -->
         <field id="photoUrl"      type="string"  value=""    onChange="onPhotoUrlChange" />
+        <!-- Set by MainScene while current photo is showing, to preload the next one -->
+        <field id="preloadUrl"    type="string"  value=""    onChange="onPreloadUrlChange" />
         <!-- true = paused, false = running -->
         <field id="paused"        type="boolean" value="true"  onChange="onPausedChange" />
         <!-- Slide duration in seconds -->
@@ -20,13 +22,9 @@
             height="720"
         />
 
-        <!-- Full-screen photo; scaleToFit centres and letterboxes without re-fetching -->
-        <Poster
-            id="photo"
-            width="1280"
-            height="720"
-            loadDisplayMode="scaleToFit"
-        />
+        <!-- Double-buffered posters: one visible (current), one hidden (preloading next) -->
+        <Poster id="posterA" width="1280" height="720" loadDisplayMode="scaleToFit" visible="true" />
+        <Poster id="posterB" width="1280" height="720" loadDisplayMode="scaleToFit" visible="false" />
 
         <!-- Auto-advance timer -->
         <Timer

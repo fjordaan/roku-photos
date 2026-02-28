@@ -61,6 +61,10 @@ sub showPhoto(index as Integer)
     m.hud.current = m.index + 1
     m.hud.total   = m.playlist.count()
     m.photoPath.text = photo.path
+
+    ' Preload next photo while current is displaying
+    nextIndex = (m.index + 1) MOD m.playlist.count()
+    m.slideshow.preloadUrl = m.playlist[nextIndex].url
 end sub
 
 sub onAdvance()

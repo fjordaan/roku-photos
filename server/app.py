@@ -3,6 +3,7 @@ import random
 import sqlite3
 import hashlib
 import subprocess
+from urllib.parse import quote
 from flask import Flask, jsonify, send_file, abort, request
 from config import LIBRARY_ROOT, SERVER_PORT, NAS_IP, SUPPORTED_EXTENSIONS, DB_PATH, DEFAULT_PLAYLIST_LIMIT, RESIZE_WIDTH, CACHE_DIR
 
@@ -26,7 +27,7 @@ def iter_photos():
 
 
 def photo_url(rel_path):
-    return f"http://{NAS_IP}:{SERVER_PORT}/photos/{rel_path}?w={RESIZE_WIDTH}"
+    return f"http://{NAS_IP}:{SERVER_PORT}/photos/{quote(rel_path)}?w={RESIZE_WIDTH}"
 
 
 # ---------------------------------------------------------------------------
