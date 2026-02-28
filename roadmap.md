@@ -8,7 +8,7 @@ Development stages, starting with core functionality, moving on to nice-to-have 
 - Demonstrate that we can read and display photos from the NAS
 - Demonstrate that we can detect all button presses on Roku remote
 
-## Stage 2: Basic screensaver without menu
+## Stage 2: Basic screensaver without menu ✓ DONE
 
 - Create server app to run on NAS
 - Build an index of all photos in Library
