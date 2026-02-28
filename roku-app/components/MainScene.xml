@@ -24,18 +24,14 @@
         />
 
         <!-- Play/Pause icon (centre of screen, visible for 2s on toggle) -->
-        <Group id="pauseOverlay" visible="false" scale="[2, 2]" scaleRotateCenter="[640, 360]">
-            <Label
-                id="pauseIcon"
-                text=""
-                color="0xffffffff"
-                font="font:LargeSystemFont"
-                horizAlign="center"
-                vertAlign="center"
-                width="1280"
-                height="720"
-            />
-        </Group>
+        <Poster
+            id="pauseIcon"
+            width="200"
+            height="200"
+            translation="[540, 260]"
+            loadDisplayMode="scaleToFit"
+            visible="false"
+        />
         <Timer id="pauseIconTimer" duration="2.0" repeat="false" />
 
         <!-- Error message (hidden by default) -->

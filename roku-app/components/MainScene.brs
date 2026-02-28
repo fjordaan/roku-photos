@@ -5,7 +5,6 @@ sub init()
     m.hud            = m.top.findNode("hud")
     m.photoPath      = m.top.findNode("photoPath")
     m.errorLabel     = m.top.findNode("errorLabel")
-    m.pauseOverlay   = m.top.findNode("pauseOverlay")
     m.pauseIcon      = m.top.findNode("pauseIcon")
     m.pauseIconTimer = m.top.findNode("pauseIconTimer")
     m.pauseIconTimer.observeField("fire", "onPauseIconTimer")
@@ -91,16 +90,16 @@ sub togglePause()
     m.paused = not m.paused
     m.slideshow.paused = m.paused
     if m.paused
-        m.pauseIcon.text = "⏸"
+        m.pauseIcon.uri = "pkg:/images/icon_pause.png"
     else
-        m.pauseIcon.text = "▶"
+        m.pauseIcon.uri = "pkg:/images/icon_play.png"
     end if
-    m.pauseOverlay.visible = true
+    m.pauseIcon.visible = true
     m.pauseIconTimer.control = "start"   ' restarts if already running
 end sub
 
 sub onPauseIconTimer()
-    m.pauseOverlay.visible = false
+    m.pauseIcon.visible = false
 end sub
 
 sub showError(msg as String)
