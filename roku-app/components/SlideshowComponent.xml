@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="SlideshowComponent" extends="Group">
+    <interface>
+        <!-- Set to trigger photo display update -->
+        <field id="photoUrl"      type="string"  value=""    onChange="onPhotoUrlChange" />
+        <!-- true = paused, false = running -->
+        <field id="paused"        type="boolean" value="false" onChange="onPausedChange" />
+        <!-- Slide duration in seconds -->
+        <field id="slideDuration" type="float"   value="2.0" onChange="onSlideDurationChange" />
+        <!-- Fires on each timer tick; alwaysNotify so observers fire even if value stays true -->
+        <field id="advance"       type="boolean" value="false" alwaysNotify="true" />
+    </interface>
+    <script type="text/brightscript" uri="pkg:/components/SlideshowComponent.brs" />
+    <children>
+        <!-- Black background shown while photo loads -->
+        <Rectangle
+            id="bg"
+            color="0x000000ff"
+            width="1280"
+            height="720"
+        />
+
+        <!-- Full-screen photo -->
+        <Poster
+            id="photo"
+            width="1280"
+            height="720"
+            scaleMode="zoom-to-fit"
+        />
+
+        <!-- Auto-advance timer -->
+        <Timer
+            id="timer"
+            repeat="true"
+            duration="2.0"
+        />
+    </children>
+</component>

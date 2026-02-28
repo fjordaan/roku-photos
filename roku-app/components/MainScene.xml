@@ -2,39 +2,20 @@
 <component name="MainScene" extends="Scene">
     <script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
     <children>
-        <!-- Background shown while photo loads -->
-        <Rectangle
-            color="0x1a1a2eff"
-            width="1280"
-            height="720"
-        />
+        <!-- Full-screen slideshow: black bg + poster + auto-advance timer -->
+        <SlideshowComponent id="slideshow" />
 
-        <!-- Full-screen photo -->
-        <Poster
-            id="photo"
-            width="1280"
-            height="720"
-            scaleMode="zoom-to-fit"
-        />
+        <!-- Top-left "current / total" counter -->
+        <HUDComponent id="hud" />
 
-        <!-- Status: filename or error (top-left) -->
+        <!-- Error message (hidden by default) -->
         <Label
-            id="status"
-            text="Loading..."
-            color="0xffffffff"
-            font="font:SmallSystemFont"
-            translation="[20, 20]"
-        />
-
-        <!-- Last button pressed (top-right) -->
-        <Label
-            id="currentKey"
+            id="errorLabel"
             text=""
-            color="0xaaaaaaff"
+            color="0xff4444ff"
             font="font:SmallSystemFont"
-            horizAlign="right"
-            width="400"
-            translation="[860, 20]"
+            translation="[20, 680]"
+            visible="false"
         />
     </children>
 </component>

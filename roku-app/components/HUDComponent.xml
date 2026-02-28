@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="HUDComponent" extends="Group">
+    <interface>
+        <field id="current" type="integer" value="0" onChange="onCountChange" />
+        <field id="total"   type="integer" value="0" onChange="onCountChange" />
+    </interface>
+    <script type="text/brightscript" uri="pkg:/components/HUDComponent.brs" />
+    <children>
+        <!-- Semi-transparent backing pill -->
+        <Rectangle
+            color="0x00000099"
+            width="150"
+            height="36"
+            translation="[16, 16]"
+        />
+        <Label
+            id="counter"
+            text="— / —"
+            color="0xffffffff"
+            font="font:SmallSystemFont"
+            translation="[24, 22]"
+        />
+    </children>
+</component>

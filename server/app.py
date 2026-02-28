@@ -1,9 +1,14 @@
 import os
+import sqlite3
 from flask import Flask, jsonify, send_file, abort, request
-from config import LIBRARY_ROOT, SERVER_PORT, NAS_IP, SUPPORTED_EXTENSIONS
+from config import LIBRARY_ROOT, SERVER_PORT, NAS_IP, SUPPORTED_EXTENSIONS, DB_PATH, DEFAULT_PLAYLIST_LIMIT
 
 app = Flask(__name__)
 
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
 
 def iter_photos():
     """Recursively yield all supported photo files under LIBRARY_ROOT."""
@@ -13,6 +18,14 @@ def iter_photos():
                 yield os.path.join(dirpath, filename)
 
 
+def photo_url(rel_path):
+    return f"http://{NAS_IP}:{SERVER_PORT}/photos/{rel_path}"
+
+
+# ---------------------------------------------------------------------------
+# Routes
+# ---------------------------------------------------------------------------
+
 @app.route("/api/status")
 def status():
     return jsonify({"status": "ok"})
@@ -20,27 +33,53 @@ def status():
 
 @app.route("/api/playlist")
 def playlist():
-    limit = request.args.get("limit", type=int)
+    order = request.args.get("order", "random")
+    limit = request.args.get("limit", DEFAULT_PLAYLIST_LIMIT, type=int)
+
+    # Use SQLite index when available; fall back to filesystem walk on first deploy.
+    if os.path.isfile(DB_PATH):
+        photos = _playlist_from_db(order, limit)
+    else:
+        photos = _playlist_from_fs(limit)
+
+    return jsonify(photos)
+
+
+def _playlist_from_db(order, limit):
+    order_clause = "ORDER BY RANDOM()" if order != "az" else "ORDER BY filename"
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    try:
+        rows = conn.execute(
+            f"SELECT path, filename FROM photos {order_clause} LIMIT ?",
+            (limit,),
+        ).fetchall()
+    finally:
+        conn.close()
+
+    return [
+        {"url": photo_url(row["path"]), "path": row["path"], "filename": row["filename"]}
+        for row in rows
+    ]
+
+
+def _playlist_from_fs(limit):
     photos = []
     for abs_path in iter_photos():
-        rel_path = os.path.relpath(abs_path, LIBRARY_ROOT)
-        # Use forward slashes in URLs regardless of OS
-        url_path = rel_path.replace(os.sep, "/")
+        rel_path = os.path.relpath(abs_path, LIBRARY_ROOT).replace(os.sep, "/")
         photos.append({
-            "url": f"http://{NAS_IP}:{SERVER_PORT}/photos/{url_path}",
-            "path": url_path,
+            "url": photo_url(rel_path),
+            "path": rel_path,
             "filename": os.path.basename(abs_path),
         })
-        if limit and len(photos) >= limit:
+        if len(photos) >= limit:
             break
-    return jsonify(photos)
+    return photos
 
 
 @app.route("/photos/<path:photo_path>")
 def serve_photo(photo_path):
-    abs_path = os.path.join(LIBRARY_ROOT, photo_path)
-    # Prevent directory traversal attacks
-    abs_path = os.path.realpath(abs_path)
+    abs_path = os.path.realpath(os.path.join(LIBRARY_ROOT, photo_path))
     library_root = os.path.realpath(LIBRARY_ROOT)
     if not abs_path.startswith(library_root + os.sep):
         abort(403)
