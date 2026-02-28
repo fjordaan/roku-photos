@@ -91,9 +91,9 @@ sub togglePause()
     m.paused = not m.paused
     m.slideshow.paused = m.paused
     if m.paused
-        m.pauseIcon.text = "||"
+        m.pauseIcon.text = "⏸"
     else
-        m.pauseIcon.text = ">"
+        m.pauseIcon.text = "▶"
     end if
     m.pauseOverlay.visible = true
     m.pauseIconTimer.control = "start"   ' restarts if already running

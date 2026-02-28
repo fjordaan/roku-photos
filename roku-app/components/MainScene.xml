@@ -24,16 +24,16 @@
         />
 
         <!-- Play/Pause icon (centre of screen, visible for 2s on toggle) -->
-        <Group id="pauseOverlay" translation="[490, 285]" visible="false">
-            <Rectangle color="0x00000099" width="300" height="150" />
+        <Group id="pauseOverlay" visible="false" scale="[2, 2]" scaleRotateCenter="[640, 360]">
             <Label
                 id="pauseIcon"
                 text=""
                 color="0xffffffff"
                 font="font:LargeSystemFont"
                 horizAlign="center"
-                width="300"
-                translation="[0, 55]"
+                vertAlign="center"
+                width="1280"
+                height="720"
             />
         </Group>
         <Timer id="pauseIconTimer" duration="2.0" repeat="false" />
