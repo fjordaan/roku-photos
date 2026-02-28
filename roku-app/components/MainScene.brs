@@ -1,10 +1,14 @@
 sub init()
     m.top.setFocus(true)
 
-    m.slideshow  = m.top.findNode("slideshow")
-    m.hud        = m.top.findNode("hud")
-    m.photoPath  = m.top.findNode("photoPath")
-    m.errorLabel = m.top.findNode("errorLabel")
+    m.slideshow      = m.top.findNode("slideshow")
+    m.hud            = m.top.findNode("hud")
+    m.photoPath      = m.top.findNode("photoPath")
+    m.errorLabel     = m.top.findNode("errorLabel")
+    m.pauseOverlay   = m.top.findNode("pauseOverlay")
+    m.pauseIcon      = m.top.findNode("pauseIcon")
+    m.pauseIconTimer = m.top.findNode("pauseIconTimer")
+    m.pauseIconTimer.observeField("fire", "onPauseIconTimer")
 
     m.playlist = []
     m.index    = 0
@@ -86,6 +90,17 @@ end sub
 sub togglePause()
     m.paused = not m.paused
     m.slideshow.paused = m.paused
+    if m.paused
+        m.pauseIcon.text = "||"
+    else
+        m.pauseIcon.text = ">"
+    end if
+    m.pauseOverlay.visible = true
+    m.pauseIconTimer.control = "start"   ' restarts if already running
+end sub
+
+sub onPauseIconTimer()
+    m.pauseOverlay.visible = false
 end sub
 
 sub showError(msg as String)
