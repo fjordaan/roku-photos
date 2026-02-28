@@ -3,6 +3,7 @@ import random
 import sqlite3
 import hashlib
 import subprocess
+import tempfile
 from urllib.parse import quote
 from flask import Flask, jsonify, send_file, abort, request
 from config import LIBRARY_ROOT, SERVER_PORT, NAS_IP, SUPPORTED_EXTENSIONS, DB_PATH, DEFAULT_PLAYLIST_LIMIT, RESIZE_WIDTH, CACHE_DIR
@@ -105,17 +106,28 @@ def serve_resized(abs_path, width):
 
     if not os.path.isfile(cache_path):
         os.makedirs(CACHE_DIR, exist_ok=True)
-        subprocess.run(
-            [
-                "convert",
-                "-auto-orient",          # correct EXIF rotation
-                "-resize", f"{width}x>", # resize to width, preserve ratio, no upscale
-                "-quality", "85",
-                abs_path,
-                cache_path,
-            ],
-            check=True,
-        )
+        # Write to a temp file then rename atomically so concurrent requests
+        # never read a partially-written cache file.
+        fd, tmp_path = tempfile.mkstemp(dir=CACHE_DIR, suffix=".tmp")
+        os.close(fd)
+        try:
+            subprocess.run(
+                [
+                    "convert",
+                    "-strip",                # remove metadata (fixes old/unusual JPEGs)
+                    "-auto-orient",          # correct EXIF rotation
+                    "-resize", f"{width}x>", # resize to width, preserve ratio, no upscale
+                    "-quality", "85",
+                    abs_path,
+                    tmp_path,
+                ],
+                check=True,
+            )
+            os.replace(tmp_path, cache_path)  # atomic rename
+        except Exception:
+            if os.path.exists(tmp_path):
+                os.unlink(tmp_path)
+            raise
 
     return send_file(cache_path, mimetype="image/jpeg")
 
