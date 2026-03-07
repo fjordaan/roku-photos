@@ -41,35 +41,22 @@ end sub
 ' ---- Settings ----
 
 sub loadSettings()
-    reg = CreateObject("roRegistrySection", "roku-photos")
-
-    photoType    = reg.Read("photo_type")
-    folderPath   = reg.Read("folder_path")
-    order        = reg.Read("order")
-    durStr       = reg.Read("slide_duration")
-    loopingStr   = reg.Read("looping")
-    dissolveStr  = reg.Read("dissolve")
-    nasIp        = reg.Read("server_ip")
-    serverPort   = reg.Read("server_port")
-
-    if photoType   = "" then photoType   = "all"
-    ' folder mode without a saved path is meaningless — reset to all
-    if photoType = "folder" and folderPath = "" then photoType = "all"
-    if order       = "" then order       = "random"
-    if durStr      = "" then durStr      = "5"
-    if loopingStr  = "" then loopingStr  = "true"
-    if dissolveStr = "" then dissolveStr = "true"
-    if nasIp       = "" then nasIp       = "192.168.1.51"
-    if serverPort  = "" then serverPort  = "8080"
-
+    ' Display settings always start at defaults on launch — no persistence.
     m.settings = {
-        photoType:     photoType,
-        folderPath:    folderPath,
-        order:         order,
-        slideDuration: Val(durStr),
-        looping:       (loopingStr = "true"),
-        dissolve:      (dissolveStr = "true")
+        photoType:     "all",
+        folderPath:    "",
+        order:         "random",
+        slideDuration: 5,
+        looping:       true,
+        dissolve:      true
     }
+
+    ' Server config only is read from registry (set once, rarely changes).
+    reg        = CreateObject("roRegistrySection", "roku-photos")
+    nasIp      = reg.Read("server_ip")
+    serverPort = reg.Read("server_port")
+    if nasIp      = "" then nasIp      = "192.168.1.51"
+    if serverPort = "" then serverPort = "8080"
 
     m.serverBase = "http://" + nasIp + ":" + serverPort
 end sub
@@ -328,7 +315,7 @@ sub endScreenSelect()
         m.paused = false
         fetchPlaylist()
     else if idx = 2
-        m.top.getScene().exitChannel()
+        m.top.exitApp = true
     end if
 end sub
 

@@ -160,7 +160,7 @@ sub handleMenuAction(itemId as String)
 
     ' Exit app
     if itemId = "exit_app"
-        m.top.getScene().exitChannel()
+        m.top.exitApp = true
         return
     end if
 

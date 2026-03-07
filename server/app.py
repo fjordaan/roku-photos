@@ -149,7 +149,8 @@ def serve_resized(abs_path, width):
         except Exception:
             if os.path.exists(tmp_path):
                 os.unlink(tmp_path)
-            raise
+            # ImageMagick failed (corrupt/unusual file) — serve original unresized
+            return send_file(abs_path)
 
     return send_file(cache_path, mimetype="image/jpeg")
 
