@@ -247,7 +247,7 @@ However, in the following menus, the menu should NOT close after selecting an op
 ##### Close menu
 - **Function:** Closes Activation sub-submenu
 
-#### Blocklist
+#### Block or Bookmark
 - **Type:** Submenu
 - **Function:** Opens Blocklist sub-submenu
 
@@ -255,6 +255,12 @@ However, in the following menus, the menu should NOT close after selecting an op
 - **Type:** Action
 - **Function:** Adds the current photo to a blocklist, stored on the server, preventing it from being included in future playlists
 - After activation, close the menu, move on to the next photo in the playlist, and display the message "Last photo will not be displayed again"
+
+##### Bookmark
+- **Type:** Action
+- **Function:** Adds the current photo to a bookmark list, stored on the server, that I use for photos I'd like to get back to.
+- It should be possible to browse the bookmark list via a server URL. There should also be an option to remove one or all photos from the list.
+- After activation, close the menu, move on to the next photo in the playlist, and display the message "Last photo bookmarked"
 
 ##### Close menu
 - **Function:** Closes Blocklist sub-submnenu
