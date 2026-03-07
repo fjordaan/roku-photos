@@ -4,6 +4,7 @@ import sqlite3
 import hashlib
 import subprocess
 import tempfile
+import datetime
 from urllib.parse import quote
 from flask import Flask, jsonify, send_file, abort, request
 from config import LIBRARY_ROOT, SERVER_PORT, NAS_IP, SUPPORTED_EXTENSIONS, DB_PATH, DEFAULT_PLAYLIST_LIMIT, RESIZE_WIDTH, CACHE_DIR
@@ -75,14 +76,19 @@ def _playlist_from_db(order, limit, filter_type="all", filter_path=""):
     conn.row_factory = sqlite3.Row
     try:
         rows = conn.execute(
-            f"SELECT path, filename FROM photos {where_clause} {order_clause} LIMIT ?",
+            f"SELECT path, filename, mtime FROM photos {where_clause} {order_clause} LIMIT ?",
             params,
         ).fetchall()
     finally:
         conn.close()
 
     return [
-        {"url": photo_url(row["path"]), "path": row["path"], "filename": row["filename"]}
+        {
+            "url":      photo_url(row["path"]),
+            "path":     row["path"],
+            "filename": row["filename"],
+            "date":     datetime.datetime.fromtimestamp(row["mtime"]).strftime("%d %B %Y %H:%M:%S"),
+        }
         for row in rows
     ]
 
@@ -92,9 +98,10 @@ def _playlist_from_fs(limit):
     for abs_path in iter_photos():
         rel_path = os.path.relpath(abs_path, LIBRARY_ROOT).replace(os.sep, "/")
         photos.append({
-            "url": photo_url(rel_path),
-            "path": rel_path,
+            "url":      photo_url(rel_path),
+            "path":     rel_path,
             "filename": os.path.basename(abs_path),
+            "date":     datetime.datetime.fromtimestamp(os.path.getmtime(abs_path)).strftime("%d %B %Y %H:%M:%S"),
         })
         if len(photos) >= limit:
             break

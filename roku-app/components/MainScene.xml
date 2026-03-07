@@ -10,20 +10,8 @@
         <!-- Top-left "current / total" counter -->
         <HUDComponent id="hud" />
 
-        <!-- Current photo path (bottom-left) -->
-        <Rectangle
-            color="0x00000099"
-            width="1280"
-            height="28"
-            translation="[0, 688]"
-        />
-        <Label
-            id="photoPath"
-            text=""
-            color="0xffffffff"
-            font="font:SmallSystemFont"
-            translation="[12, 692]"
-        />
+        <!-- Photo info overlay (bottom, toggled by Down/Up) -->
+        <PhotoInfoComponent id="photoInfo" translation="[0, 620]" visible="false" />
 
         <!-- Play/Pause icon (centre of screen, visible for 2s on toggle) -->
         <Poster

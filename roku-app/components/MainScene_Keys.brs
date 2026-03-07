@@ -65,7 +65,12 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
     else if key = "options"
         openSettingsMenu()
     else if key = "down"
-        ' PhotoInfoComponent toggle — implemented in issue #14
+        showPhotoInfo()
+    else if key = "up"
+        if m.photoInfoVisible
+            hidePhotoInfo()
+        end if
+        ' else: Thumbnails overlay — Stage 5
     end if
 
     return true

@@ -9,7 +9,7 @@ sub init()
 
     m.slideshow       = m.top.findNode("slideshow")
     m.hud             = m.top.findNode("hud")
-    m.photoPath       = m.top.findNode("photoPath")
+    m.photoInfo       = m.top.findNode("photoInfo")
     m.errorLabel      = m.top.findNode("errorLabel")
     m.pauseIcon       = m.top.findNode("pauseIcon")
     m.pauseIconTimer  = m.top.findNode("pauseIconTimer")
@@ -21,12 +21,13 @@ sub init()
     m.slideshow.observeField("advance", "onAdvance")
 
     ' Playlist + navigation state
-    m.playlist      = []
-    m.index         = 0
-    m.paused        = false
-    m.currentFolder = ""
-    m.menuStack     = []
+    m.playlist        = []
+    m.index           = 0
+    m.paused          = false
+    m.currentFolder   = ""
+    m.menuStack       = []
     m.autoCloseActive = false
+    m.photoInfoVisible = false
 
     loadSettings()
     m.slideshow.slideDuration = m.settings.slideDuration
@@ -157,9 +158,8 @@ sub showPhoto(index as Integer)
     m.slideshow.photoUrl = photo.url
     m.hud.current        = m.index + 1
     m.hud.total          = m.playlist.count()
-    m.photoPath.text     = photo.path
 
-    ' Extract folder path for "This folder" menu option
+    ' Extract folder path for "This folder" menu option and info overlay
     pathLen = Len(photo.path)
     fileLen = 0
     if photo.filename <> invalid then fileLen = Len(photo.filename)
@@ -168,6 +168,11 @@ sub showPhoto(index as Integer)
     else
         m.currentFolder = ""
     end if
+
+    ' Update photo info overlay (visible or not — stays current when toggled on)
+    m.photoInfo.photoPath     = m.currentFolder
+    m.photoInfo.photoFilename = if(photo.filename <> invalid, photo.filename, "")
+    m.photoInfo.photoDate     = if(photo.date <> invalid, photo.date, "")
 
     ' Preload next photo
     nextIdx = m.index + 1
@@ -269,6 +274,18 @@ sub applyOrder()
         end if
     end for
     showPhoto(newIdx)
+end sub
+
+' ---- Photo info overlay ----
+
+sub showPhotoInfo()
+    m.photoInfoVisible    = true
+    m.photoInfo.visible   = true
+end sub
+
+sub hidePhotoInfo()
+    m.photoInfoVisible    = false
+    m.photoInfo.visible   = false
 end sub
 
 ' ---- Error display ----

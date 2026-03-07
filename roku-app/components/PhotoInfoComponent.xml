@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="PhotoInfoComponent" extends="Group">
+    <interface>
+        <field id="photoPath"     type="string" value="" onChange="onDataChange" />
+        <field id="photoFilename" type="string" value="" onChange="onDataChange" />
+        <field id="photoDate"     type="string" value="" onChange="onDataChange" />
+    </interface>
+    <script type="text/brightscript" uri="pkg:/components/PhotoInfoComponent.brs" />
+    <children>
+        <!-- Semi-transparent dark background -->
+        <Rectangle id="bg" color="0x000000BB" width="1280" height="100" />
+
+        <!-- Row 1 left: folder path -->
+        <Label
+            id="pathLabel"
+            color="0xCCCCCCFF"
+            font="font:SmallSystemFont"
+            translation="[20, 16]"
+            width="940"
+        />
+
+        <!-- Row 1 right: date/time -->
+        <Label
+            id="dateLabel"
+            color="0xCCCCCCFF"
+            font="font:SmallSystemFont"
+            horizAlign="right"
+            translation="[1000, 16]"
+            width="260"
+        />
+
+        <!-- Row 2: filename (large) -->
+        <Label
+            id="filenameLabel"
+            color="0xFFFFFFFF"
+            font="font:LargeSystemFont"
+            translation="[20, 44]"
+            width="1240"
+        />
+    </children>
+</component>
