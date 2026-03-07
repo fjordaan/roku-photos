@@ -59,7 +59,7 @@ Development stages, starting with core functionality, moving on to nice-to-have 
 - Photo blocklist
 - Photo bookmark (similar to blocklist, for ones I want to follow up later)
 - Browse thumbnails and folders (via `Up` `Up` and `Down` `Down`)
-- Echo Play / Pause action with small icon in HUD
+- Echo Play/Pause action with a small icon in the HUD (visible even while menu is open)
 
 ## Stage 6: The future
 This is entirely notional, and may never happen.
