@@ -97,7 +97,6 @@ sub fetchPlaylist()
     if m.settings.photoType = "folder" and m.settings.folderPath <> ""
         url = url + "&type=folder&path=" + urlEncode(m.settings.folderPath)
     end if
-    print "fetchPlaylist: photoType=" + m.settings.photoType + " folderPath=" + m.settings.folderPath + " url=" + url
 
     m.task = CreateObject("roSGNode", "FetchPlaylistTask")
     m.task.url = url

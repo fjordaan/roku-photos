@@ -40,28 +40,6 @@ def status():
     return jsonify({"status": "ok"})
 
 
-@app.route("/api/debug")
-def debug():
-    filter_path = request.args.get("path", "")
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
-    try:
-        db_exists = os.path.isfile(DB_PATH)
-        total = conn.execute("SELECT COUNT(*) FROM photos").fetchone()[0]
-        sample = [r["path"] for r in conn.execute("SELECT path FROM photos LIMIT 5").fetchall()]
-        folder_count = 0
-        if filter_path:
-            folder = filter_path.rstrip("/")
-            folder_count = conn.execute(
-                "SELECT COUNT(*) FROM photos WHERE path LIKE ? AND path NOT LIKE ?",
-                [folder + "/%", folder + "/%/%"]
-            ).fetchone()[0]
-    finally:
-        conn.close()
-    return jsonify({"db_exists": db_exists, "total": total, "sample_paths": sample,
-                    "filter_path": filter_path, "folder_count": folder_count})
-
-
 @app.route("/api/playlist")
 def playlist():
     order       = request.args.get("order", "random")
