@@ -50,6 +50,8 @@ sub loadSettings()
     serverPort   = reg.Read("server_port")
 
     if photoType   = "" then photoType   = "all"
+    ' folder mode without a saved path is meaningless — reset to all
+    if photoType = "folder" and folderPath = "" then photoType = "all"
     if order       = "" then order       = "random"
     if durStr      = "" then durStr      = "5"
     if loopingStr  = "" then loopingStr  = "true"
@@ -93,9 +95,9 @@ end sub
 sub fetchPlaylist()
     url = m.serverBase + "/api/playlist?order=" + m.settings.order + "&limit=500"
     if m.settings.photoType = "folder" and m.settings.folderPath <> ""
-        xfer = CreateObject("roUrlTransfer")
-        url = url + "&type=folder&path=" + xfer.Escape(m.settings.folderPath)
+        url = url + "&type=folder&path=" + urlEncode(m.settings.folderPath)
     end if
+    print "fetchPlaylist: photoType=" + m.settings.photoType + " folderPath=" + m.settings.folderPath + " url=" + url
 
     m.task = CreateObject("roSGNode", "FetchPlaylistTask")
     m.task.url = url
@@ -109,6 +111,14 @@ sub onPlaylistLoaded()
 
     photos = ParseJson(m.task.jsonResult)
     if photos = invalid or photos.count() = 0
+        ' If folder filter returned nothing, fall back to all photos
+        if m.settings.photoType = "folder"
+            m.settings.photoType  = "all"
+            m.settings.folderPath = ""
+            saveSettings()
+            fetchPlaylist()
+            return
+        end if
         showError("No photos found")
         return
     end if
@@ -232,9 +242,59 @@ sub applySlideDuration()
     m.slideshow.slideDuration = m.settings.slideDuration
 end sub
 
+' Re-sort/shuffle the current in-memory playlist and stay at the current photo.
+sub applyOrder()
+    if m.playlist.count() = 0 then return
+
+    currentPath = m.playlist[m.index].path
+
+    if m.settings.order = "az"
+        m.playlist.SortBy("filename", "i")
+    else
+        ' Fisher-Yates shuffle
+        count = m.playlist.count()
+        for i = count - 1 to 1 step -1
+            j = int(rnd(0) * (i + 1))
+            tmp          = m.playlist[i]
+            m.playlist[i] = m.playlist[j]
+            m.playlist[j] = tmp
+        end for
+    end if
+
+    ' Stay at the same photo in its new position
+    newIdx = 0
+    for i = 0 to m.playlist.count() - 1
+        if m.playlist[i].path = currentPath
+            newIdx = i
+            exit for
+        end if
+    end for
+    showPhoto(newIdx)
+end sub
+
 ' ---- Error display ----
 
 sub showError(msg as String)
     m.errorLabel.text    = msg
     m.errorLabel.visible = true
 end sub
+
+' ---- Utilities ----
+
+' URL-encode a string without roUrlTransfer (not available on the render thread).
+' Keeps / unencoded so NAS paths remain readable; encodes everything else.
+function urlEncode(s as String) as String
+    safe    = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~/"
+    hex     = "0123456789ABCDEF"
+    encoded = ""
+    for i = 1 to Len(s)
+        c    = Mid(s, i, 1)
+        code = Asc(c)
+        if Instr(1, safe, c) > 0
+            encoded = encoded + c
+        else
+            encoded = encoded + "%" + Mid(hex, int(code / 16) + 1, 1) + Mid(hex, (code MOD 16) + 1, 1)
+        end if
+    end for
+    return encoded
+end function

@@ -13,11 +13,11 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
             togglePause()
             return true
         end if
-        if key = "rev"
+        if key = "rewind"
             goBack10()
             return true
         end if
-        if key = "fwd"
+        if key = "fastforward"
             goForward10()
             return true
         end if
@@ -56,9 +56,9 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
         openExitMenu()
     else if key = "OK"
         openMainMenu()
-    else if key = "rev"
+    else if key = "rewind"
         goBack10()
-    else if key = "fwd"
+    else if key = "fastforward"
         goForward10()
     else if key = "replay"
         openPhotosMenu()

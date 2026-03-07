@@ -187,7 +187,7 @@ sub handleMenuAction(itemId as String)
     if itemId = "order_random"
         m.settings.order = "random"
         saveSettings()
-        fetchPlaylist()
+        applyOrder()
         startAutoClose()
         return
     end if
@@ -195,7 +195,7 @@ sub handleMenuAction(itemId as String)
     if itemId = "order_az"
         m.settings.order = "az"
         saveSettings()
-        fetchPlaylist()
+        applyOrder()
         startAutoClose()
         return
     end if
