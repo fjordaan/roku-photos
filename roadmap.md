@@ -57,7 +57,9 @@ Development stages, starting with core functionality, moving on to nice-to-have 
 - Thumbnails overlay (`Up` button)
 - Select Library / Custom playlists
 - Photo blocklist
+- Photo bookmark (similar to blocklist, for ones I want to follow up later)
 - Browse thumbnails and folders (via `Up` `Up` and `Down` `Down`)
+- Echo Play / Pause action with small icon in HUD
 
 ## Stage 6: The future
 This is entirely notional, and may never happen.
