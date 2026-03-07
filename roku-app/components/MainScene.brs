@@ -171,8 +171,16 @@ sub showPhoto(index as Integer)
 
     ' Update photo info overlay (visible or not — stays current when toggled on)
     m.photoInfo.photoPath     = m.currentFolder
-    m.photoInfo.photoFilename = if(photo.filename <> invalid, photo.filename, "")
-    m.photoInfo.photoDate     = if(photo.date <> invalid, photo.date, "")
+    if photo.filename <> invalid then
+        m.photoInfo.photoFilename = photo.filename
+    else
+        m.photoInfo.photoFilename = ""
+    end if
+    if photo.date <> invalid then
+        m.photoInfo.photoDate = photo.date
+    else
+        m.photoInfo.photoDate = ""
+    end if
 
     ' Preload next photo
     nextIdx = m.index + 1

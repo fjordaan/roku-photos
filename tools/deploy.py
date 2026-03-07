@@ -36,12 +36,12 @@ def sideload():
         "curl", "--digest",
         "-o", "-",
         "-w", "\nHTTP %{http_code}\n",
-        "-F", "mysubmit=Delete",
+        "-F", "mysubmit=Install",
         "-F", f"archive=@{ZIP_OUT}",
         "--user", f"{ROKU_USER}:{ROKU_PASS}",
         f"http://{ROKU_IP}/plugin_install",
     ], capture_output=True, text=True)
-    if "Install Success" in result.stdout or "install_success" in result.stdout.lower():
+    if "Install Success" in result.stdout:
         print("Sideload: Install Success")
     else:
         print("Sideload output:", result.stdout[-500:])
