@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="EndScreenComponent" extends="Group">
+    <interface>
+        <field id="selectedIndex" type="integer" value="0" onChange="onSelectedChange" />
+    </interface>
+    <script type="text/brightscript" uri="pkg:/components/EndScreenComponent.brs" />
+    <children>
+        <!-- Panel background -->
+        <Rectangle id="panel" color="0xF5F5F5FF" />
+
+        <!-- Heading -->
+        <Label
+            id="heading"
+            text="End of slideshow"
+            color="0x333333FF"
+            font="font:MediumSystemFont"
+        />
+
+        <!-- Item rows (built in code) -->
+        <Group id="itemsGroup" />
+    </children>
+</component>

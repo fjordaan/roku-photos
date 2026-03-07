@@ -10,6 +10,7 @@ sub init()
     m.slideshow       = m.top.findNode("slideshow")
     m.hud             = m.top.findNode("hud")
     m.photoInfo       = m.top.findNode("photoInfo")
+    m.endScreen       = m.top.findNode("endScreen")
     m.errorLabel      = m.top.findNode("errorLabel")
     m.pauseIcon       = m.top.findNode("pauseIcon")
     m.pauseIconTimer  = m.top.findNode("pauseIconTimer")
@@ -21,13 +22,14 @@ sub init()
     m.slideshow.observeField("advance", "onAdvance")
 
     ' Playlist + navigation state
-    m.playlist        = []
-    m.index           = 0
-    m.paused          = false
-    m.currentFolder   = ""
-    m.menuStack       = []
-    m.autoCloseActive = false
+    m.playlist         = []
+    m.index            = 0
+    m.paused           = false
+    m.currentFolder    = ""
+    m.menuStack        = []
+    m.autoCloseActive  = false
     m.photoInfoVisible = false
+    m.endScreenActive  = false
 
     loadSettings()
     m.slideshow.slideDuration = m.settings.slideDuration
@@ -205,9 +207,9 @@ sub goForward()
     if count = 0 then return
     if m.index >= count - 1
         if not m.settings.looping
-            ' At end with looping off — stop. End screen implemented in issue #15.
             m.paused = true
             m.slideshow.paused = true
+            showEndScreen()
             return
         end if
         showPhoto(0)
@@ -282,6 +284,66 @@ sub applyOrder()
         end if
     end for
     showPhoto(newIdx)
+end sub
+
+' ---- End of slideshow screen ----
+
+sub showEndScreen()
+    m.endScreenActive        = true
+    m.endScreen.selectedIndex = 0
+    m.endScreen.visible      = true
+end sub
+
+sub hideEndScreen()
+    m.endScreenActive   = false
+    m.endScreen.visible = false
+end sub
+
+sub endScreenUp()
+    count = 3
+    newIdx = (m.endScreen.selectedIndex - 1 + count) MOD count
+    m.endScreen.selectedIndex = newIdx
+end sub
+
+sub endScreenDown()
+    count = 3
+    newIdx = (m.endScreen.selectedIndex + 1) MOD count
+    m.endScreen.selectedIndex = newIdx
+end sub
+
+sub endScreenSelect()
+    idx = m.endScreen.selectedIndex
+    hideEndScreen()
+    if idx = 0
+        ' Restart current playlist from beginning
+        m.paused = false
+        showPhoto(0)
+        m.slideshow.paused = false
+    else if idx = 1
+        ' Restart with all photos, random order
+        m.settings.photoType  = "all"
+        m.settings.folderPath = ""
+        m.settings.order      = "random"
+        saveSettings()
+        m.paused = false
+        fetchPlaylist()
+    else if idx = 2
+        m.top.getScene().exitChannel()
+    end if
+end sub
+
+sub endScreenGoBack()
+    hideEndScreen()
+    m.paused = false
+    m.slideshow.paused = false
+    goBack()
+end sub
+
+sub endScreenGoBack10()
+    hideEndScreen()
+    m.paused = false
+    m.slideshow.paused = false
+    goBack10()
 end sub
 
 ' ---- Photo info overlay ----

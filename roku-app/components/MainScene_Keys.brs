@@ -7,6 +7,25 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
     if not press then return true
     print "KEY: " + key + " menuOpen=" + isMenuOpen().toStr()
 
+    if m.endScreenActive
+        if key = "up"
+            endScreenUp()
+        else if key = "down"
+            endScreenDown()
+        else if key = "OK" or key = "right"
+            endScreenSelect()
+        else if key = "left"
+            endScreenGoBack()
+        else if key = "rewind"
+            endScreenGoBack10()
+        else if key = "back"
+            hideEndScreen()
+            openExitMenu()
+        end if
+        ' All other keys (menu shortcuts etc.) are blocked on end screen
+        return true
+    end if
+
     if isMenuOpen()
         ' These slideshow controls pass-through even while a menu is open
         if key = "play"

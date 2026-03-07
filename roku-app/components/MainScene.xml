@@ -24,6 +24,9 @@
         />
         <Timer id="pauseIconTimer" duration="2.0" repeat="false" />
 
+        <!-- End of slideshow screen (centred, shown when playlist ends with looping off) -->
+        <EndScreenComponent id="endScreen" visible="false" />
+
         <!-- Menu overlay (centred, shown on demand) -->
         <MenuComponent id="menuComponent" visible="false" />
 
