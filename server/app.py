@@ -42,26 +42,41 @@ def status():
 
 @app.route("/api/playlist")
 def playlist():
-    order = request.args.get("order", "random")
-    limit = request.args.get("limit", DEFAULT_PLAYLIST_LIMIT, type=int)
+    order       = request.args.get("order", "random")
+    limit       = request.args.get("limit", DEFAULT_PLAYLIST_LIMIT, type=int)
+    filter_type = request.args.get("type", "all")   # "all" or "folder"
+    filter_path = request.args.get("path", "")      # folder path for type=folder
 
     # Use SQLite index when available; fall back to filesystem walk on first deploy.
     if os.path.isfile(DB_PATH):
-        photos = _playlist_from_db(order, limit)
+        photos = _playlist_from_db(order, limit, filter_type, filter_path)
     else:
         photos = _playlist_from_fs(limit)
 
     return jsonify(photos)
 
 
-def _playlist_from_db(order, limit):
+def _playlist_from_db(order, limit, filter_type="all", filter_path=""):
     order_clause = "ORDER BY RANDOM()" if order != "az" else "ORDER BY filename"
+
+    where_clause = ""
+    params = []
+
+    if filter_type == "folder" and filter_path:
+        # Normalise: strip trailing slash, then match direct children only
+        folder = filter_path.rstrip("/")
+        where_clause = "WHERE path LIKE ? AND path NOT LIKE ?"
+        params.append(folder + "/%")
+        params.append(folder + "/%/%")  # exclude sub-folders
+
+    params.append(limit)
+
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     try:
         rows = conn.execute(
-            f"SELECT path, filename FROM photos {order_clause} LIMIT ?",
-            (limit,),
+            f"SELECT path, filename FROM photos {where_clause} {order_clause} LIMIT ?",
+            params,
         ).fetchall()
     finally:
         conn.close()

@@ -9,6 +9,8 @@
         <field id="paused"        type="boolean" value="true"  onChange="onPausedChange" />
         <!-- Slide duration in seconds -->
         <field id="slideDuration" type="float"   value="5.0" onChange="onSlideDurationChange" />
+        <!-- true = dissolve transition, false = instant cut (visual effect TODO) -->
+        <field id="dissolve"      type="boolean" value="true" />
         <!-- Fires on each timer tick; alwaysNotify so observers fire even if value stays true -->
         <field id="advance"       type="boolean" value="false" alwaysNotify="true" />
     </interface>
@@ -32,5 +34,15 @@
             repeat="true"
             duration="5.0"
         />
+
+        <!-- Dissolve transition: fade out the current poster while the next shows through -->
+        <Animation id="animA" duration="0.5" easeFunction="linear" repeat="false">
+            <FloatFieldInterpolator key="[0.0, 1.0]" keyValue="[1.0, 0.0]" fieldToInterp="posterA.opacity" />
+        </Animation>
+        <Animation id="animB" duration="0.5" easeFunction="linear" repeat="false">
+            <FloatFieldInterpolator key="[0.0, 1.0]" keyValue="[1.0, 0.0]" fieldToInterp="posterB.opacity" />
+        </Animation>
+        <!-- Fires when dissolve is complete so we can clean up poster state -->
+        <Timer id="dissolveTimer" duration="0.5" repeat="false" />
     </children>
 </component>

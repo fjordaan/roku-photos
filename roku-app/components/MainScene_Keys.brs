@@ -1,0 +1,72 @@
+' ============================================================
+' Key event handler for MainScene
+' Shared scope with MainScene.brs and MainScene_Menu.brs
+' ============================================================
+
+function onKeyEvent(key as String, press as Boolean) as Boolean
+    if not press then return true
+    print "KEY: " + key + " menuOpen=" + isMenuOpen().toStr()
+
+    if isMenuOpen()
+        ' These slideshow controls pass-through even while a menu is open
+        if key = "play"
+            togglePause()
+            return true
+        end if
+        if key = "rev"
+            goBack10()
+            return true
+        end if
+        if key = "fwd"
+            goForward10()
+            return true
+        end if
+        if key = "replay"
+            closeMenu()
+            openPhotosMenu()
+            return true
+        end if
+        if key = "options"
+            closeMenu()
+            openSettingsMenu()
+            return true
+        end if
+
+        ' Menu navigation
+        if key = "up"
+            menuMoveUp()
+        else if key = "down"
+            menuMoveDown()
+        else if key = "OK" or key = "right"
+            menuSelect()
+        else if key = "back" or key = "left"
+            menuBack()
+        end if
+        return true
+    end if
+
+    ' No menu open — slideshow controls
+    if key = "left"
+        goBack()
+    else if key = "right"
+        goForward()
+    else if key = "play"
+        togglePause()
+    else if key = "back"
+        openExitMenu()
+    else if key = "OK"
+        openMainMenu()
+    else if key = "rev"
+        goBack10()
+    else if key = "fwd"
+        goForward10()
+    else if key = "replay"
+        openPhotosMenu()
+    else if key = "options"
+        openSettingsMenu()
+    else if key = "down"
+        ' PhotoInfoComponent toggle — implemented in issue #14
+    end if
+
+    return true
+end function

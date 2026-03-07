@@ -1,37 +1,102 @@
+' ============================================================
+' MainScene — init, settings, playlist, photo navigation
+' Menu logic: MainScene_Menu.brs
+' Key handling: MainScene_Keys.brs
+' ============================================================
+
 sub init()
     m.top.setFocus(true)
 
-    m.slideshow      = m.top.findNode("slideshow")
-    m.hud            = m.top.findNode("hud")
-    m.photoPath      = m.top.findNode("photoPath")
-    m.errorLabel     = m.top.findNode("errorLabel")
-    m.pauseIcon      = m.top.findNode("pauseIcon")
-    m.pauseIconTimer = m.top.findNode("pauseIconTimer")
+    m.slideshow       = m.top.findNode("slideshow")
+    m.hud             = m.top.findNode("hud")
+    m.photoPath       = m.top.findNode("photoPath")
+    m.errorLabel      = m.top.findNode("errorLabel")
+    m.pauseIcon       = m.top.findNode("pauseIcon")
+    m.pauseIconTimer  = m.top.findNode("pauseIconTimer")
+    m.menuComponent   = m.top.findNode("menuComponent")
+    m.autoCloseTimer  = m.top.findNode("autoCloseTimer")
+
     m.pauseIconTimer.observeField("fire", "onPauseIconTimer")
-
-    m.playlist = []
-    m.index    = 0
-    m.paused   = false
-
-    ' Read server config from registry (falls back to hardcoded defaults)
-    reg          = CreateObject("roRegistrySection", "roku-photos")
-    nasIp        = reg.Read("server_ip")
-    serverPort   = reg.Read("server_port")
-    slideDuration = reg.Read("slide_duration")
-    if nasIp = ""         then nasIp        = "192.168.1.51"
-    if serverPort = ""    then serverPort   = "8080"
-    if slideDuration = "" then slideDuration = "5"
-
-    m.serverBase = "http://" + nasIp + ":" + serverPort
-    m.slideshow.slideDuration = Val(slideDuration)
-
+    m.autoCloseTimer.observeField("fire", "onAutoCloseTimer")
     m.slideshow.observeField("advance", "onAdvance")
+
+    ' Playlist + navigation state
+    m.playlist      = []
+    m.index         = 0
+    m.paused        = false
+    m.currentFolder = ""
+    m.menuStack     = []
+    m.autoCloseActive = false
+
+    loadSettings()
+    m.slideshow.slideDuration = m.settings.slideDuration
+    m.slideshow.dissolve      = m.settings.dissolve
 
     fetchPlaylist()
 end sub
 
+' ---- Settings ----
+
+sub loadSettings()
+    reg = CreateObject("roRegistrySection", "roku-photos")
+
+    photoType    = reg.Read("photo_type")
+    folderPath   = reg.Read("folder_path")
+    order        = reg.Read("order")
+    durStr       = reg.Read("slide_duration")
+    loopingStr   = reg.Read("looping")
+    dissolveStr  = reg.Read("dissolve")
+    nasIp        = reg.Read("server_ip")
+    serverPort   = reg.Read("server_port")
+
+    if photoType   = "" then photoType   = "all"
+    if order       = "" then order       = "random"
+    if durStr      = "" then durStr      = "5"
+    if loopingStr  = "" then loopingStr  = "true"
+    if dissolveStr = "" then dissolveStr = "true"
+    if nasIp       = "" then nasIp       = "192.168.1.51"
+    if serverPort  = "" then serverPort  = "8080"
+
+    m.settings = {
+        photoType:     photoType,
+        folderPath:    folderPath,
+        order:         order,
+        slideDuration: Val(durStr),
+        looping:       (loopingStr = "true"),
+        dissolve:      (dissolveStr = "true")
+    }
+
+    m.serverBase = "http://" + nasIp + ":" + serverPort
+end sub
+
+sub saveSettings()
+    reg = CreateObject("roRegistrySection", "roku-photos")
+    reg.Write("photo_type",     m.settings.photoType)
+    reg.Write("folder_path",    m.settings.folderPath)
+    reg.Write("order",          m.settings.order)
+    reg.Write("slide_duration", m.settings.slideDuration.toStr())
+    if m.settings.looping
+        reg.Write("looping", "true")
+    else
+        reg.Write("looping", "false")
+    end if
+    if m.settings.dissolve
+        reg.Write("dissolve", "true")
+    else
+        reg.Write("dissolve", "false")
+    end if
+    reg.Flush()
+end sub
+
+' ---- Playlist ----
+
 sub fetchPlaylist()
-    url = m.serverBase + "/api/playlist?order=random&limit=500"
+    url = m.serverBase + "/api/playlist?order=" + m.settings.order + "&limit=500"
+    if m.settings.photoType = "folder" and m.settings.folderPath <> ""
+        xfer = CreateObject("roUrlTransfer")
+        url = url + "&type=folder&path=" + xfer.Escape(m.settings.folderPath)
+    end if
+
     m.task = CreateObject("roSGNode", "FetchPlaylistTask")
     m.task.url = url
     m.task.observeField("jsonResult", "onPlaylistLoaded")
@@ -48,31 +113,64 @@ sub onPlaylistLoaded()
         return
     end if
 
+    ' Try to stay at the current photo after a re-fetch (e.g. order change)
+    targetPath = ""
+    if m.playlist.count() > 0 and m.index < m.playlist.count()
+        targetPath = m.playlist[m.index].path
+    end if
+
     m.playlist = photos
-    showPhoto(0)
-    m.slideshow.paused = false   ' start auto-advance
+
+    startIdx = 0
+    if targetPath <> ""
+        for i = 0 to photos.count() - 1
+            if photos[i].path = targetPath
+                startIdx = i
+                exit for
+            end if
+        end for
+    end if
+
+    showPhoto(startIdx)
+    m.slideshow.paused = m.paused
 end sub
 
 sub onPlaylistError()
     showError("Server error: " + m.task.fetchError)
 end sub
 
+' ---- Photo display ----
+
 sub showPhoto(index as Integer)
     m.index = index
-    photo = m.playlist[m.index]
-    m.slideshow.photoUrl = photo.url
-    m.hud.current = m.index + 1
-    m.hud.total   = m.playlist.count()
-    m.photoPath.text = photo.path
+    photo   = m.playlist[m.index]
 
-    ' Preload next photo while current is displaying
-    nextIndex = (m.index + 1) MOD m.playlist.count()
-    m.slideshow.preloadUrl = m.playlist[nextIndex].url
+    m.slideshow.photoUrl = photo.url
+    m.hud.current        = m.index + 1
+    m.hud.total          = m.playlist.count()
+    m.photoPath.text     = photo.path
+
+    ' Extract folder path for "This folder" menu option
+    pathLen = Len(photo.path)
+    fileLen = 0
+    if photo.filename <> invalid then fileLen = Len(photo.filename)
+    if fileLen > 0 and pathLen > fileLen + 1
+        m.currentFolder = Left(photo.path, pathLen - fileLen - 1)
+    else
+        m.currentFolder = ""
+    end if
+
+    ' Preload next photo
+    nextIdx = m.index + 1
+    if nextIdx >= m.playlist.count() then nextIdx = 0
+    m.slideshow.preloadUrl = m.playlist[nextIdx].url
 end sub
 
 sub onAdvance()
     goForward()
 end sub
+
+' ---- Navigation ----
 
 sub goBack()
     count = m.playlist.count()
@@ -83,8 +181,36 @@ end sub
 sub goForward()
     count = m.playlist.count()
     if count = 0 then return
-    showPhoto((m.index + 1) MOD count)
+    if m.index >= count - 1
+        if not m.settings.looping
+            ' At end with looping off — stop. End screen implemented in issue #15.
+            m.paused = true
+            m.slideshow.paused = true
+            return
+        end if
+        showPhoto(0)
+    else
+        showPhoto(m.index + 1)
+    end if
 end sub
+
+sub goBack10()
+    count = m.playlist.count()
+    if count = 0 then return
+    newIdx = m.index - 10
+    if newIdx < 0 then newIdx = 0
+    showPhoto(newIdx)
+end sub
+
+sub goForward10()
+    count = m.playlist.count()
+    if count = 0 then return
+    newIdx = m.index + 10
+    if newIdx >= count then newIdx = count - 1
+    showPhoto(newIdx)
+end sub
+
+' ---- Pause / play ----
 
 sub togglePause()
     m.paused = not m.paused
@@ -95,31 +221,20 @@ sub togglePause()
         m.pauseIcon.uri = "pkg:/images/icon_play.png"
     end if
     m.pauseIcon.visible = true
-    m.pauseIconTimer.control = "start"   ' restarts if already running
+    m.pauseIconTimer.control = "start"
 end sub
 
 sub onPauseIconTimer()
     m.pauseIcon.visible = false
 end sub
 
-sub showError(msg as String)
-    m.errorLabel.text = msg
-    m.errorLabel.visible = true
+sub applySlideDuration()
+    m.slideshow.slideDuration = m.settings.slideDuration
 end sub
 
-function onKeyEvent(key as String, press as Boolean) as Boolean
-    if not press then return true
+' ---- Error display ----
 
-    if key = "left"
-        goBack()
-    else if key = "right"
-        goForward()
-    else if key = "play"
-        togglePause()
-    else if key = "back"
-        ' Exit the channel
-        m.top.getScene().exitChannel()
-    end if
-
-    return true
-end function
+sub showError(msg as String)
+    m.errorLabel.text    = msg
+    m.errorLabel.visible = true
+end sub

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="MenuComponent" extends="Group">
+    <interface>
+        <!-- { heading: "", items: [{id, title, label, checked, hasSubmenu, submenuId}] } -->
+        <field id="menuDef"       type="assocarray" onChange="onMenuDefChange" />
+        <!-- Index of the currently highlighted item -->
+        <field id="selectedIndex" type="integer"    value="0" onChange="onSelectedChange" />
+    </interface>
+    <script type="text/brightscript" uri="pkg:/components/MenuComponent.brs" />
+    <children>
+        <!-- White panel background -->
+        <Rectangle id="panel" color="0xFFFFFFFF" />
+        <!-- Optional heading (e.g. "Exit screensaver?") -->
+        <Label id="heading" color="0x444444FF" font="font:MediumBoldSystemFont" />
+        <!-- Item rows built dynamically in BRS -->
+        <Group id="itemsGroup" />
+    </children>
+</component>

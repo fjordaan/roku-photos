@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <component name="MainScene" extends="Scene">
     <script type="text/brightscript" uri="pkg:/components/MainScene.brs" />
+    <script type="text/brightscript" uri="pkg:/components/MainScene_Menu.brs" />
+    <script type="text/brightscript" uri="pkg:/components/MainScene_Keys.brs" />
     <children>
         <!-- Full-screen slideshow: black bg + poster + auto-advance timer -->
         <SlideshowComponent id="slideshow" />
@@ -33,6 +35,12 @@
             visible="false"
         />
         <Timer id="pauseIconTimer" duration="2.0" repeat="false" />
+
+        <!-- Menu overlay (centred, shown on demand) -->
+        <MenuComponent id="menuComponent" visible="false" />
+
+        <!-- Auto-close timer: closes menu 2s after a boolean selection -->
+        <Timer id="autoCloseTimer" duration="2.0" repeat="false" />
 
         <!-- Error message (hidden by default) -->
         <Label
